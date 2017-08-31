@@ -257,15 +257,4 @@ nbdist/
 .DS_Store
 
 builds/
-builds/*
-*/builds/
-
-scripts/tests/
-scripts/**/*bashinput.txt
-scripts/**/*bashinput.exe
-scripts/**/*bashinput.dll
-scripts/**/*bashinput.ini
-
-application/*
-testdata/surgical-data
-testdata/trecvid-data
+scripts/*

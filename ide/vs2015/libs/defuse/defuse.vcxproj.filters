@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien\base">
+      <UniqueIdentifier>{6de6f1d9-3784-4b81-925e-031db8fccb43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\xtractors">
+      <UniqueIdentifier>{af24026b-0b9d-4e84-ba9a-600117019e77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\features">
+      <UniqueIdentifier>{269030cb-aabe-4cd6-8422-c5ab04103631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\distance">
+      <UniqueIdentifier>{2c3dd2d3-d26e-4c54-9b59-93b588f15ce7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\valuator">
+      <UniqueIdentifier>{786f2cee-b8c1-41d9-a228-c8a8b5476d8a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\include\defuse.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\distancebase.hpp">
+      <Filter>Headerdateien\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\xtractorbase.hpp">
+      <Filter>Headerdateien\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\videobase.hpp">
+      <Filter>Headerdateien\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\featuresbase.hpp">
+      <Filter>Headerdateien\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\resultbase.hpp">
+      <Filter>Headerdateien\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\sigxtractor.hpp">
+      <Filter>Headerdateien\xtractors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\fdysigxtractor.hpp">
+      <Filter>Headerdateien\xtractors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\featuresignatures.hpp">
+      <Filter>Headerdateien\features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\motionhistogram.hpp">
+      <Filter>Headerdateien\features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\minkowski.hpp">
+      <Filter>Headerdateien\distance</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\smd.hpp">
+      <Filter>Headerdateien\distance</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\sqfd.hpp">
+      <Filter>Headerdateien\distance</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\valuator.hpp">
+      <Filter>Headerdateien\valuator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\evaluatedquery.hpp">
+      <Filter>Headerdateien\valuator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\rankedresult.hpp">
+      <Filter>Headerdateien\valuator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\samplepoints.hpp">
+      <Filter>Headerdateien\xtractors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\cnnfeatures.hpp">
+      <Filter>Headerdateien\features</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\defuse_info.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\featuresignatures.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\minkowski.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\motionhistogram.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\rankedresult.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\resultbase.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\samplepoints.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\sigxtractor.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\smd.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\valuator.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\videobase.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\sqfd.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\fdysigxtractor.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\cnnfeatures.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\featuresbase.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\libs\defuse\Makefile" />
+    <None Include="..\..\..\..\libs\defuse\README.md" />
+  </ItemGroup>
+</Project>
