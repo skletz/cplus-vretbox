@@ -6,6 +6,8 @@
 
 defuse::BRISKXtractor::BRISKXtractor()
 {
+  mKeypointDetector = cv::BRISK::create();
+  mDescriptorExtactor = cv::BRISK::create();
 }
 
 defuse::FeaturesBase* defuse::BRISKXtractor::xtract(VideoBase* _videobase)
@@ -150,15 +152,15 @@ std::string defuse::BRISKXtractor::getXtractorID() const
 bool defuse::BRISKXtractor::computeBriskKeypoints(cv::Mat& _grayimage, std::vector<cv::KeyPoint>& _keypoints) const
 {
   // std::vector keypoints;
-  cv::Ptr<cv::BRISK> detector = cv::BRISK::create();
-  detector->detect(_grayimage, _keypoints);
+  // cv::Ptr<cv::BRISK> detector = cv::BRISK::create();
+  mKeypointDetector->detect(_grayimage, _keypoints);
   return true;
 }
 
-bool defuse::BRISKXtractor::computeBriskDescriptors(cv::Mat& _grayimage, std::vector<cv::KeyPoint>& _keypoints, cv::OutputArray _signatures) const
+bool defuse::BRISKXtractor::computeBriskDescriptors(cv::Mat& _grayimage, std::vector<cv::KeyPoint>& _keypoints, cv::OutputArray& _signatures) const
 {
-  cv::Ptr<cv::BRISK> descriptorExtractor = cv::BRISK::create();
-  descriptorExtractor->compute(_grayimage, _keypoints, _signatures);
+  // cv::Ptr<cv::BRISK> descriptorExtractor = cv::BRISK::create();
+  mDescriptorExtactor->compute(_grayimage, _keypoints, _signatures);
   // LOG_INFO("SIG DIMS: " << _signatures.getMatRef().rows << " x " << _signatures.getMatRef().cols);
 
   return true;
