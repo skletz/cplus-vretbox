@@ -10,8 +10,8 @@ double defuse::Valuator::sortModelToQuery(
 	DistanceBase* _distance, std::vector<RankedResult*>& _results)
 {
 	int modelSize = int(_model.size());
-	std::vector<defuse::RankedResult*> results;
-	results.reserve(modelSize);
+	//std::vector<defuse::RankedResult*> results;
+	_results.reserve(modelSize);
 
 	double avgSearchTime = 0.0;
 	for (int iElem = 0; iElem < modelSize; iElem++)
@@ -36,16 +36,17 @@ double defuse::Valuator::sortModelToQuery(
 		result->mDistance = distance;
 		result->mSearchTime = searchTime;
 
-		results.push_back(result);
+		_results.push_back(result);
 	}
 
-	std::sort(results.begin(), results.end(), [](const RankedResult* s1, const RankedResult* s2)
+	std::sort(_results.begin(), _results.end(), [](const RankedResult* s1, const RankedResult* s2)
 	{
 		return (s1->mDistance < s2->mDistance);
 	});
 
 	//return results
-	_results.assign(results.begin(), results.end());
+	//_results.assign(results.begin(), results.end());
+
 	return avgSearchTime = avgSearchTime / double(modelSize);;
 }
 
@@ -113,8 +114,6 @@ double defuse::Valuator::computeMAPAtK(
 
 	int querySize = int(_queries.size());
 
-	std::vector<RankedResult*> _results;
-
 	std::map<std::tuple<int, double>, double> precAtValues;
 	std::tuple<int, double, double, double> precAtKValues;
 
@@ -122,6 +121,7 @@ double defuse::Valuator::computeMAPAtK(
 	double averageSearchtime = 0.0;
 	for (int iQuery = 0; iQuery < querySize; iQuery++)
 	{
+		std::vector<RankedResult*> _results;
 		FeaturesBase* query = _queries.at(iQuery);
 		averageSearchtime = sortModelToQuery(query, _model, _distance, _results);
 		double averagePrecision = computeAPAtK(k, query, _results, querySize, precAtValues, precAtKValues);
@@ -132,6 +132,12 @@ double defuse::Valuator::computeMAPAtK(
 		guard.lock();
 		showProgress("Group: " + std::to_string(_id), iQuery + 1, querySize);
 		guard.unlock();
+
+		for (std::vector< RankedResult* >::iterator it = _results.begin(); it != _results.end(); ++it)
+		{
+			delete (*it);
+		}
+		_results.clear();
 	}
 
 	meanAveragePrecision = meanAveragePrecision / double(querySize);
@@ -146,6 +152,8 @@ double defuse::Valuator::computeMAPAtK(
 	guard.lock();
 	LOG_INFO("Group finished: " << _id << " MAP@" << k << ": " << meanAveragePrecision);
 	guard.unlock();
+
+
 
 	return meanAveragePrecision;
 }

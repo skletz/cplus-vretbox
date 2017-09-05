@@ -142,7 +142,7 @@ void vretbox::VRETBOXValuation::run()
 
 		elementcnt += groupSize;
 		
-		//mValuator->computeMAPAtK(maxElements, group, (*iQueryGroup).second, mDistance, mModel);
+		//mValuator->computeMAPAtK(mAtK, group, (*iQueryGroup).second, mDistance, mModel);
 
 		pool->addTask(boost::bind(&defuse::Valuator::computeMAPAtK, mValuator, mAtK, group, (*iQueryGroup).second, mDistance, mModel));
 	
