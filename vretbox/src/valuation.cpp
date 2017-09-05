@@ -117,10 +117,9 @@ bool vretbox::VRETBOXValuation::init(boost::program_options::variables_map _args
 	//Init output
 	//Extend outputdirectory with modelname
 	mOutput->addDirectory(modelname);
-
+	mValuationTimes->extendFileName(modelname);
 	mValuator = new defuse::Valuator();
 	mValuator->mModelname = modelname;
-	mValuator->mCompDistanceTimeFile = mValuationTimes;
 
 	LOG_INFO("**** " << "Retrieval Feature Evaluation Tool " << "**** ");
 	LOG_INFO("**** " << "Settings");
@@ -196,6 +195,8 @@ void vretbox::VRETBOXValuation::run()
 	precValues->extendFileName("at" + pos + "-prec");
 	precValues->addDirectoryToPath(mValuator->mModelname);
 	mValuator->writePrecesionRecallValues(precValues, mValuator->mPrecisionRecallCurveValues);
+
+	mValuator->writeCompTimeValues(mValuationTimes, mValuator->mCompDistanceTimes);
 }
 
 defuse::SMD* vretbox::VRETBOXValuation::initSMDistance() const

@@ -17,8 +17,6 @@ namespace defuse {
 
 		std::string mModelname;
 
-		File* mCompDistanceTimeFile;
-
 		std::vector<std::pair<int, double>> mMaps;
 
 		double mAAMap;
@@ -82,7 +80,10 @@ namespace defuse {
 		void interpolateRecallTo11Steps(
 			std::vector<std::map<std::tuple<int, double>, double>> _precisionRecall, 
 			std::vector<std::map<std::tuple<int, double>, double>>& _interpolatedPrecisionRecall);
-
+		
+		void writeCompTimeValues(File* _file, std::vector<std::pair<int, double>> _compTimeValues);
+		
+		
 		~Valuator(){};
 
 		std::unique_lock<std::mutex> locking();

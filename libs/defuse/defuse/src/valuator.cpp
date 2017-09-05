@@ -497,6 +497,24 @@ void defuse::Valuator::interpolateRecallTo11Steps(
 	_interpolatedPrecisionRecall.assign(tmp2.begin(), tmp2.end());
 }
 
+void defuse::Valuator::writeCompTimeValues(File* _file, std::vector<std::pair<int, double>> _compTimeValues)
+{
+	std::ofstream outfile;
+	outfile.open(_file->getFile(), std::ofstream::out);
+
+	if (!outfile.is_open())
+	{
+		LOG_ERROR("Error: Cannot open CSV File: " << _file->getFile());
+	}
+
+	for(int i = 0; i < _compTimeValues.size(); i++)
+	{
+		outfile << _compTimeValues.at(i).first << ", " << _compTimeValues.at(i).second << "\n";
+	}
+
+	outfile.close();
+}
+
 std::unique_lock<std::mutex> defuse::Valuator::locking()
 {
 	std::unique_lock<std::mutex> guard(mLock);
