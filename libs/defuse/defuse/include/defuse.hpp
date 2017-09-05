@@ -10,6 +10,7 @@
 #include "../src/sigxtractor.hpp"
 #include "../src/samplepoints.hpp"
 #include "../src/fdysigxtractor.hpp"
+#include "../src/briskextractor.hpp"
 
 #include "../src/featuresignatures.hpp"
 #include "../src/motionhistogram.hpp"
