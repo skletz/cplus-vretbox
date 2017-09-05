@@ -17,8 +17,6 @@
 **/
 
 #include "xtraction.hpp"
-#include "../../libs/defuse/defuse/src/comoxtractor.hpp"
-
 
 vretbox::VRETBOXXtraction::VRETBOXXtraction()
 	: mXtractor(nullptr), mVideo(nullptr), mFeatures(nullptr),

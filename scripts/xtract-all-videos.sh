@@ -22,7 +22,7 @@ LOGFILE="$VRET_EVAL"/logs/xtraction-$timestamp.out
 echo "LOGFILE: " $LOGFILE
 
 #CONFIGFILE="$VRET_EVAL"/configs/Sig_Xtract_Test.ini
-CONFIGFILE=../testdata/config-files/Sig-Extraction.ini
+CONFIGFILE=../testdata/config-files/Test_Xtract.ini
 
 #Settings
 samplepoints=(8000)
@@ -39,7 +39,7 @@ for samples in "${samplepoints[@]}"; do
       start_timestamp=$(date +"%Y-%m-%d_%H-%M-%S.%3N")
       echo "START: "$samples","$centroids","$frames","$start_timestamp >> "${LOGFILE}"
       echo "---------------------------------------------------------" >> "${LOGFILE}"
-      time find "$VRET_DATA"/ -type f -name *.mp4 -print0 | xargs -0 -I {} -P 18 bash xtract-one-video.sh -i {} -o "$VRET_EVAL"/features -c $CONFIGFILE -q $samples -w $centroids -e $frames -r "$VRET_EVAL"/presentation 2>&1 | tee -a "${LOGFILE}"
+      time find "$VRET_DATA"/ -type f -name *.mp4 -print0 | xargs -0 -I {} -P 8 bash xtract-one-video.sh -i {} -o "$VRET_EVAL"/features -c $CONFIGFILE -q $samples -w $centroids -e $frames -r "$VRET_EVAL"/presentation 2>&1 | tee -a "${LOGFILE}"
       #read -p "Press enter to continue"
       echo "---------------------------------------------------------" >> "${LOGFILE}"
       end_timestamp=$(date +"%Y-%m-%d_%H-%M-%S.%3N")

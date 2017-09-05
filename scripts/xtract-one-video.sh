@@ -86,6 +86,6 @@ printf "%-20s %s\n" "initial centroids :"   "$CENTROIDS"
 printf "%-20s %s\n" "max frames :"   "$FRAMES"
 printf "%-20s %s\n" "outdir :"   "$OUTDIR"
 
-echo "Execute:" --Cfg.fs.initSeeds $SAMPLES --Cfg.fs.initialCentroids $CENTROIDS --Cfg.dfs.maxFrames $FRAMES --infile $INFILE --outfile $OUTFILE --outdir $OUTDIR --config $CONFIGFILE
+echo "Execute:" $PROG --Cfg.fs.initSeeds $SAMPLES --Cfg.fs.initialCentroids $CENTROIDS --Cfg.dfs.maxFrames $FRAMES --infile $INFILE --outfile $OUTFILE --outdir $OUTDIR --config $CONFIGFILE
 
 time $BIN/$PROG --Cfg.fs.initSeeds $SAMPLES --Cfg.fs.initialCentroids $CENTROIDS --Cfg.dfs.maxFrames $FRAMES --infile "$INFILE" --outfile "$OUTFILE" --outdir "$OUTDIR" --config "$CONFIGFILE"

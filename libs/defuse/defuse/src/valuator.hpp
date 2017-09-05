@@ -42,8 +42,15 @@ namespace defuse {
 
 		Valuator();
 
+		double computeRandomMAPs(int _id, std::vector<FeaturesBase*> _queries,
+			DistanceBase* _distance, std::vector<FeaturesBase*> _model);
+
 		double sortModelToQuery(
 			FeaturesBase* _query, std::vector<FeaturesBase*> _model, 
+			DistanceBase* _distance, std::vector<RankedResult*>& _results);
+
+		double sortModelRandomToQuery(
+			FeaturesBase* _query, std::vector<FeaturesBase*> _model,
 			DistanceBase* _distance, std::vector<RankedResult*>& _results);
 
 		double computeMAPAtK(

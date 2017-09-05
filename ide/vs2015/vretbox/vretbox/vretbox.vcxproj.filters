@@ -46,18 +46,21 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\testdata\config-files\Sig_Valuat_Test.ini">
-      <Filter>Ressourcendateien</Filter>
-    </None>
     <None Include="..\..\..\..\README.md" />
     <None Include="..\..\..\..\Makefile" />
-    <None Include="..\..\..\..\testdata\config-files\Sig-Evaluation.ini">
+    <None Include="..\..\..\..\testdata\config-files\Test_Xtract.ini">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\..\..\..\testdata\config-files\Test_Valuat.ini">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\..\..\..\testdata\config-files\SFS-Evaluation.ini">
       <Filter>Ressourcendateien</Filter>
     </None>
     <None Include="..\..\..\..\testdata\config-files\Sig-Extraction.ini">
       <Filter>Ressourcendateien</Filter>
     </None>
-    <None Include="..\..\..\..\testdata\config-files\Test_Xtract.ini">
+    <None Include="..\..\..\..\testdata\config-files\CNN-Evaluation.ini">
       <Filter>Ressourcendateien</Filter>
     </None>
   </ItemGroup>

@@ -41,6 +41,8 @@ namespace vretbox {
 
 		int mMaxThreads;
 
+		bool mRandom;
+
 		std::mutex mLock;
 
 		/**

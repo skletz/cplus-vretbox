@@ -27,7 +27,7 @@ vretbox::VRETBOXValuation::VRETBOXValuation()
 	: mValuationTimes(nullptr), mDistance(nullptr),
 	  mXtractor(nullptr), mValuator(nullptr),
 	  mInput(nullptr), mIndex(nullptr), mQueryIndex(nullptr),
-	  mOutputMAPFile(nullptr), mAtK(0), mMaxThreads(0), mOutput(nullptr)
+	  mOutputMAPFile(nullptr), mAtK(0), mMaxThreads(0), mOutput(nullptr), mRandom(false)
 {
 	mArgs = nullptr;
 }
@@ -49,6 +49,8 @@ bool vretbox::VRETBOXValuation::init(boost::program_options::variables_map _args
 	mAtK = mArgs["General.atK"].as< int >();
 
 	mMaxThreads = mArgs["maxThreads"].as< int >();
+
+	mRandom = mArgs["General.random"].as< bool >();
 
 	if (mArgs["General.distance"].as< std::string >() == "smd")
 	{
@@ -103,7 +105,14 @@ bool vretbox::VRETBOXValuation::init(boost::program_options::variables_map _args
 
 	std::string modelname = mInput->directories.at(mInput->directories.size() - 1);
 	std::string distanceID = mDistance->getDistanceID();
-	modelname = modelname + "-" + distanceID;
+
+	if(mRandom)
+	{
+		modelname = modelname + "-" + "RANDOM";
+	}else
+	{
+		modelname = modelname + "-" + distanceID;
+	}
 
 	//Init output
 	//Extend outputdirectory with modelname
@@ -144,7 +153,14 @@ void vretbox::VRETBOXValuation::run()
 		
 		//mValuator->computeMAPAtK(mAtK, group, (*iQueryGroup).second, mDistance, mModel);
 
-		pool->addTask(boost::bind(&defuse::Valuator::computeMAPAtK, mValuator, mAtK, group, (*iQueryGroup).second, mDistance, mModel));
+		if(mRandom)
+		{
+			pool->addTask(boost::bind(&defuse::Valuator::computeRandomMAPs, mValuator, group, (*iQueryGroup).second, mDistance, mModel));
+		}else
+		{
+			pool->addTask(boost::bind(&defuse::Valuator::computeMAPAtK, mValuator, mAtK, group, (*iQueryGroup).second, mDistance, mModel));
+		}
+
 	
 	}
 	pool->createAndJoinThreads();

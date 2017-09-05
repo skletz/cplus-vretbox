@@ -19,11 +19,7 @@ defuse::FeaturesBase* defuse::COMOXtractor::xtract(VideoBase* _videobase)
 	cv::Mat vectors;
 
 	//Measure extraction time
-	double e1Start = double(cv::getTickCount());
-	computeCOMODescriptor(stream, _videobase->mFile->getFile(), vectors);
-	double e1End = double(cv::getTickCount());
-	double elapsedSecs = (e1End - e1Start) / double(cv::getTickFrequency());
-
+	double elapsedSecs = computeCOMODescriptor(stream, _videobase->mFile->getFile(), vectors);
 	FeaturesBase* features = new FeaturesBase(_videobase->mFile->getFilename(), vectors);
 	features->mExtractionTime = float(elapsedSecs);
 
@@ -101,7 +97,7 @@ void defuse::COMOXtractor::showProgress(int _step, int _total) const
 	std::cout.flush();
 }
 
-bool defuse::COMOXtractor::computeCOMODescriptor(cv::VideoCapture& _video, std::string filename, cv::OutputArray _descriptor)
+double defuse::COMOXtractor::computeCOMODescriptor(cv::VideoCapture& _video, std::string filename, cv::OutputArray _descriptor)
 {
 	int framecnt = int(_video.get(CV_CAP_PROP_FRAME_COUNT));
 	int width = int(_video.get(CV_CAP_PROP_FRAME_WIDTH));
@@ -134,10 +130,15 @@ bool defuse::COMOXtractor::computeCOMODescriptor(cv::VideoCapture& _video, std::
 	_video.grab();
 	_video.retrieve(image);
 
+	//Measure extraction time
+	double e1Start = double(cv::getTickCount());
 	describe(image, como);
+	double e1End = double(cv::getTickCount());
+	double elapsedSecs = (e1End - e1Start) / double(cv::getTickFrequency());
+
 	como.copyTo(_descriptor);
 
-	return true;
+	return elapsedSecs;
 }
 
 bool defuse::COMOXtractor::describe(cv::Mat& image, cv::Mat& descriptor)
@@ -193,7 +194,7 @@ bool defuse::COMOXtractor::describe(cv::Mat& image, cv::Mat& descriptor)
 
 			if (entropy >= 1)
 			{
-				extractFromBlock(imageBlock, comoDescriptor);
+				extractFromBlock(imageBlock, grayBlock, comoDescriptor);
 			}
 		}
 	}
@@ -206,7 +207,7 @@ bool defuse::COMOXtractor::describe(cv::Mat& image, cv::Mat& descriptor)
 	return true;
 }
 
-bool defuse::COMOXtractor::extractFromBlock(cv::Mat& imageBlock, cv::Mat& features)
+bool defuse::COMOXtractor::extractFromBlock(cv::Mat& imageBlock, cv::Mat& grayBlock, cv::Mat& features)
 {
 	int area = imageBlock.cols * imageBlock.rows;
 	cv::Mat fuzzy10BinResult, fuzzy24BinResult;
@@ -220,8 +221,7 @@ bool defuse::COMOXtractor::extractFromBlock(cv::Mat& imageBlock, cv::Mat& featur
 	std::vector<double> edgeHist = std::vector<double>(huTableRows);
 
 	std::vector<cv::Mat> channels;
-	cv::Mat grayBlock, huMoments;
-	convertToGrayscale(imageBlock, grayBlock);
+	cv::Mat huMoments;
 	calculateHuMoments(grayBlock, huMoments);
 	calculateDistances(huMoments, huTable, distances);
 

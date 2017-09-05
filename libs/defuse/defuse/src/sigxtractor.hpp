@@ -160,7 +160,7 @@ namespace defuse {
 		void showProgress(int _step, int _total) const override;
 
 	
-		bool computeStaticSignatures(cv::VideoCapture& _video, std::string filename, cv::OutputArray _signatures) const;
+		double computeStaticSignatures(cv::VideoCapture& _video, std::string filename, cv::OutputArray _signatures) const;
 		void getSamples(cv::Mat& frame, std::vector<cv::Point2f> initPoints, cv::Mat& samples) const;
 		void getClusters(cv::Mat& samples, cv::Mat& signatures) const;
 	private:

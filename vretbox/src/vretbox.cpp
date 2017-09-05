@@ -129,6 +129,8 @@ boost::program_options::variables_map processProgramOptions(const int argc, cons
 			"which queries should be evaluated")
 		("General.atK", boost::program_options::value<int>()->default_value(0),
 			"which max-position should be included into the results; 0=all")
+		("General.random", boost::program_options::value<bool>()->default_value(false),
+			"should random values be evaluated?")
 
 		("Cfg.dfs.maxFrames", boost::program_options::value<int>()->default_value(5), 
 			"how many frames should be used")

@@ -2,8 +2,65 @@
 #include "rankedresult.hpp"
 #include <iostream>
 #include <mutex>
+#include <random>
 
 defuse::Valuator::Valuator() { }
+
+double defuse::Valuator::computeRandomMAPs(
+	int _id, std::vector<FeaturesBase*> _queries,
+	DistanceBase* _distance, std::vector<FeaturesBase*> _model)
+{
+	std::unique_lock<std::mutex> guard(locking());
+	LOG_INFO("Group started: " << _id << " Radnom MAP@" << " ... ");
+	guard.unlock();
+
+	std::vector<std::tuple<int, double, double, double>> precisionRecallAtK;
+
+	int querySize = int(_queries.size());
+
+	std::map<std::tuple<int, double>, double> precAtValues;
+	std::tuple<int, double, double, double> precAtKValues;
+
+	double meanAveragePrecision = 0.0;
+	double averageSearchtime = 0.0;
+	for (int iQuery = 0; iQuery < querySize; iQuery++)
+	{
+		std::vector<RankedResult*> _results;
+		FeaturesBase* query = _queries.at(iQuery);
+
+		averageSearchtime = sortModelRandomToQuery(query, _model, _distance, _results);
+
+		double averagePrecision = computeAP(query, _results, querySize, precAtValues, precAtKValues);
+		meanAveragePrecision += averagePrecision;
+
+		precisionRecallAtK.push_back(precAtKValues);
+
+		guard.lock();
+		showProgress("Group: " + std::to_string(_id), iQuery + 1, querySize);
+		guard.unlock();
+
+		for (std::vector< RankedResult* >::iterator it = _results.begin(); it != _results.end(); ++it)
+		{
+			delete (*it);
+		}
+		_results.clear();
+	}
+
+	meanAveragePrecision = meanAveragePrecision / double(querySize);
+
+	addMapValues(_id, meanAveragePrecision);
+	addCompTimeValues(_id, averageSearchtime);
+	addPrecisionRecallCurveValues(precAtValues, querySize);
+	addPrecisionRecallAtKValues(_id, precisionRecallAtK, querySize);
+
+	this->mAAMap = meanAveragePrecision;
+
+	guard.lock();
+	LOG_INFO("Group finished: " << _id << " Radnom MAP@" << ": " << meanAveragePrecision);
+	guard.unlock();
+
+	return meanAveragePrecision;
+}
 
 double defuse::Valuator::sortModelToQuery(
 	FeaturesBase* _query, std::vector<FeaturesBase*> _model,
@@ -48,6 +105,41 @@ double defuse::Valuator::sortModelToQuery(
 	//_results.assign(results.begin(), results.end());
 
 	return avgSearchTime = avgSearchTime / double(modelSize);;
+}
+
+double defuse::Valuator::sortModelRandomToQuery(FeaturesBase* _query, std::vector<FeaturesBase*> _model, DistanceBase* _distance, std::vector<RankedResult*>& _results)
+{
+	int modelSize = int(_model.size());
+	_results.reserve(modelSize);
+
+	for (int iElem = 0; iElem < modelSize; iElem++)
+	{
+		FeaturesBase* element = _model.at(iElem);
+
+		float distance = 0.0;
+
+		if (distance < 0)
+		{
+			LOG_FATAL("Fatal Error: The Distance is smaller than zero: " << distance);
+		}
+
+		double tickFrequency = double(cv::getTickFrequency());
+
+		RankedResult* result = new RankedResult(element->mID);
+		result->mMatchingCriteria = element->mMatchingCriteria;
+		result->mDistance = 0.0;
+		result->mSearchTime = 0.0;
+
+		_results.push_back(result);
+	}
+
+	srand(time(0));
+	std::random_shuffle(_results.begin(), _results.end(), [](int n) { return rand() % n; });
+
+	auto engine = std::default_random_engine{};
+	std::shuffle(_results.begin(), _results.end(), engine);
+
+	return 0.0;
 }
 
 double defuse::Valuator::computeAPAtK(
@@ -152,8 +244,6 @@ double defuse::Valuator::computeMAPAtK(
 	guard.lock();
 	LOG_INFO("Group finished: " << _id << " MAP@" << k << ": " << meanAveragePrecision);
 	guard.unlock();
-
-
 
 	return meanAveragePrecision;
 }

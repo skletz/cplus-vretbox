@@ -107,9 +107,10 @@
   <ItemGroup>
     <None Include="..\..\..\..\Makefile" />
     <None Include="..\..\..\..\README.md" />
-    <None Include="..\..\..\..\testdata\config-files\Sig-Evaluation.ini" />
+    <None Include="..\..\..\..\testdata\config-files\CNN-Evaluation.ini" />
+    <None Include="..\..\..\..\testdata\config-files\SFS-Evaluation.ini" />
     <None Include="..\..\..\..\testdata\config-files\Sig-Extraction.ini" />
-    <None Include="..\..\..\..\testdata\config-files\Sig_Valuat_Test.ini" />
+    <None Include="..\..\..\..\testdata\config-files\Test_Valuat.ini" />
     <None Include="..\..\..\..\testdata\config-files\Test_Xtract.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -118,7 +118,7 @@ float defuse::SIGXtractor::getLpDistance()
 	return mP;
 }
 
-bool defuse::SIGXtractor::computeStaticSignatures(cv::VideoCapture& _video, std::string filename, cv::OutputArray _signatures) const
+double defuse::SIGXtractor::computeStaticSignatures(cv::VideoCapture& _video, std::string filename, cv::OutputArray _signatures) const
 {
 	int framecnt = int(_video.get(CV_CAP_PROP_FRAME_COUNT));
 	int width = int(_video.get(CV_CAP_PROP_FRAME_WIDTH));
@@ -157,10 +157,13 @@ bool defuse::SIGXtractor::computeStaticSignatures(cv::VideoCapture& _video, std:
 	cv::Mat samples;
 	samples.create(int(initPoints.size()), indices.dims, CV_32F);
 
+	//Measure extraction time
+	double e1Start = double(cv::getTickCount());
 	getSamples(image, initPoints, samples);
 	getClusters(samples, signatures);
+	double e1End = double(cv::getTickCount());
+	double elapsedSecs = (e1End - e1Start) / double(cv::getTickFrequency());
 	signatures.copyTo(_signatures);
-
 	if (mDisaply || mSaveDisplay)
 	{
 		cv::Mat sampleImage, signaturesImage;
@@ -186,7 +189,7 @@ bool defuse::SIGXtractor::computeStaticSignatures(cv::VideoCapture& _video, std:
 		}
 	}
 
-	return true;
+	return elapsedSecs;
 }
 
 void defuse::SIGXtractor::deNormalizePoints(std::vector<cv::Point2f> samplepoints, int width, int height, std::vector<cv::Point2f>& output) const
