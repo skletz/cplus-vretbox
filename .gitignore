@@ -266,6 +266,10 @@ scripts/**/*bashinput.exe
 scripts/**/*bashinput.dll
 scripts/**/*bashinput.ini
 
+deletable/*
+
 application/*
+testdata/surgical_data
 testdata/surgical-data
 testdata/trecvid-data
+testdata/trecvid16_data

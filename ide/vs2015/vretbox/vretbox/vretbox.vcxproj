@@ -110,7 +110,7 @@
     <None Include="..\..\..\..\testdata\config-files\Sig-Evaluation.ini" />
     <None Include="..\..\..\..\testdata\config-files\Sig-Extraction.ini" />
     <None Include="..\..\..\..\testdata\config-files\Sig_Valuat_Test.ini" />
-    <None Include="..\..\..\..\testdata\config-files\Sig_Xtract_Test.ini" />
+    <None Include="..\..\..\..\testdata\config-files\Test_Xtract.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

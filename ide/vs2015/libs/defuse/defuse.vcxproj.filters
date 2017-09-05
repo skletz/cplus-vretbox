@@ -54,12 +54,6 @@
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\fdysigxtractor.hpp">
       <Filter>Headerdateien\xtractors</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\featuresignatures.hpp">
-      <Filter>Headerdateien\features</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\motionhistogram.hpp">
-      <Filter>Headerdateien\features</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\minkowski.hpp">
       <Filter>Headerdateien\distance</Filter>
     </ClInclude>
@@ -81,21 +75,21 @@
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\samplepoints.hpp">
       <Filter>Headerdateien\xtractors</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\cnnfeatures.hpp">
-      <Filter>Headerdateien\features</Filter>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\briskextractor.hpp">
+      <Filter>Headerdateien\xtractors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\comoxtractor.hpp">
+      <Filter>Headerdateien\xtractors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\fuzzificator.hpp">
+      <Filter>Headerdateien\xtractors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\defuse_info.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\featuresignatures.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\minkowski.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\motionhistogram.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\rankedresult.cpp">
@@ -125,10 +119,16 @@
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\fdysigxtractor.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\cnnfeatures.cpp">
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\featuresbase.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\featuresbase.cpp">
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\briskextractor.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\comoxtractor.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\fuzzificator.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

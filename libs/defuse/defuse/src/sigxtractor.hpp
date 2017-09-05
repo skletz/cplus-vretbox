@@ -12,15 +12,15 @@
  * Feature Signatures Extractor
  * This class implements the extraction of static feature signatures. 
  * Parts of the source code are based on the implemenation of 
- * PCT (position-color-texture) signatures, which were planned 
- * as a contribution for OpenCV's extra modules.
+ * PCT (position-color-texture) signatures, which are available 
+ * as contribution for OpenCV's extra modules.
  * 
  * Original implementation of position-color-texture signatures:
  * @title: PCTSignatures source code
  * @author Gregor Kovalcik, Martin Krulis, Jakub Lokoc
- * @date 19/10/15 
+ * @date 2015
  * @version 1.0 
- * @availability https://github.com/GregorKovalcik/opencv_contrib
+ * @availability http://bit.ly/2gI0QmV
  * 
  * Adapted and modified:
  * @author skletz
@@ -72,7 +72,7 @@ namespace defuse {
 		CENormalize normalizer;
 
 		//Default Setting of flow-based sampling
-		KeyFrameSelection mKeyFrameSelection = SIGXtractor::KeyFrameSelection::MiddleFrame;
+		KeyFrameSelection mKeyFrameSelection = MiddleFrame;
 
 		//Default Setting of the k-means clustering
 		int mInitSeeds;
@@ -108,7 +108,7 @@ namespace defuse {
 		
 		/**
 		 * \brief Default constructor to create feature signatures
-		 * \param _samplepoints: std::vector<cv::Point2f>
+		 * \param _samplepoints std::vector<cv::Point2f>
 		 * \param _initSeeds = 100
 		 * \param _initialCentroids = 10
 		 * \param _iterations = 5

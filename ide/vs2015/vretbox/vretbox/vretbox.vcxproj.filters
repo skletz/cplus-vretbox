@@ -49,15 +49,15 @@
     <None Include="..\..\..\..\testdata\config-files\Sig_Valuat_Test.ini">
       <Filter>Ressourcendateien</Filter>
     </None>
-    <None Include="..\..\..\..\testdata\config-files\Sig_Xtract_Test.ini">
-      <Filter>Ressourcendateien</Filter>
-    </None>
     <None Include="..\..\..\..\README.md" />
     <None Include="..\..\..\..\Makefile" />
     <None Include="..\..\..\..\testdata\config-files\Sig-Evaluation.ini">
       <Filter>Ressourcendateien</Filter>
     </None>
     <None Include="..\..\..\..\testdata\config-files\Sig-Extraction.ini">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\..\..\..\testdata\config-files\Test_Xtract.ini">
       <Filter>Ressourcendateien</Filter>
     </None>
   </ItemGroup>

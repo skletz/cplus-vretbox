@@ -504,6 +504,18 @@ float defuse::SIGXtractor::computeLp(cv::Mat& _f1, int idx1, cv::Mat& _f2, int i
 
 void defuse::SIGXtractor::showProgress(int _step, int _total) const
 {
+	int barWidth = 70;
+	float progress = float(_step / float(_total));
+
+	std::cout << "[";
+	int pos = barWidth * progress;
+	for (int i = 0; i < barWidth; ++i) {
+		if (i < pos) std::cout << "=";
+		else if (i == pos) std::cout << ">";
+		else std::cout << " ";
+	}
+	std::cout << "] " << int(progress * 100.0) << " %\r";
+	std::cout.flush();
 }
 
 std::string defuse::SIGXtractor::toString() const
@@ -719,7 +731,6 @@ void defuse::SIGXtractor::drawSamples(const cv::Mat _source, const cv::Mat _samp
 
 	result.copyTo(_result);
 }
-
 
 void defuse::SIGXtractor::drawSignatures(const cv::Mat _source, const cv::Mat _signature, cv::Mat& _result) const
 {

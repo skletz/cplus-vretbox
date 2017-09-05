@@ -123,6 +123,7 @@ void defuse::BRISKXtractor::testBrisk(VideoBase* _videobase, int _framedistance)
 
 std::string defuse::BRISKXtractor::toString() const
 {
+	return "";
 }
 
 void defuse::BRISKXtractor::showProgress(int _step, int _total) const
@@ -131,6 +132,7 @@ void defuse::BRISKXtractor::showProgress(int _step, int _total) const
 
 std::string defuse::BRISKXtractor::getXtractorID() const
 {
+	return "";
 }
 
 bool defuse::BRISKXtractor::computeBriskKeypoints(cv::Mat& _grayimage, std::vector<cv::KeyPoint>& _keypoints) const

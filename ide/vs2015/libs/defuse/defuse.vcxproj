@@ -70,14 +70,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\include\defuse.hpp" />
-    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\cnnfeatures.hpp" />
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\briskextractor.hpp" />
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\comoxtractor.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\distancebase.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\fdysigxtractor.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\evaluatedquery.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\featuresbase.hpp" />
-    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\featuresignatures.hpp" />
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\fuzzificator.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\minkowski.hpp" />
-    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\motionhistogram.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\rankedresult.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\resultbase.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\samplepoints.hpp" />
@@ -89,13 +89,13 @@
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\xtractorbase.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\cnnfeatures.cpp" />
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\briskextractor.cpp" />
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\comoxtractor.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\defuse_info.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\fdysigxtractor.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\featuresbase.cpp" />
-    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\featuresignatures.cpp" />
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\fuzzificator.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\minkowski.cpp" />
-    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\motionhistogram.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\rankedresult.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\resultbase.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\samplepoints.cpp" />

@@ -17,6 +17,7 @@
 **/
 
 #include "xtraction.hpp"
+#include "../../libs/defuse/defuse/src/comoxtractor.hpp"
 
 
 vretbox::VRETBOXXtraction::VRETBOXXtraction()
@@ -40,20 +41,37 @@ bool vretbox::VRETBOXXtraction::init(boost::program_options::variables_map _args
 	mSaveDisplay = mArgs["autosave"].as< bool >();
 
 	std::string desc = mArgs["General.descriptor"].as< std::string >();
+	bool samplepoints = false;
 	if (desc == "sfs" || desc == "ffs" || desc == "tfs")
 	{
 		areArgsValid = initStaticSignatures();
+		samplepoints = true;
 	}
 
 	if (desc == "ffs")
 	{
 		areArgsValid = initFlowbasedSignatures();
+		samplepoints = true;
+	}
+
+	if (desc == "como")
+	{
+		areArgsValid = initComoDescriptor();
+		samplepoints = false;
 	}
 
 	//Add modelname to all output destinations
 	std::string xtractorID = mXtractor->getXtractorID();
-	std::string samplepointID = mSamplepoints->getFilename();
-	std::string modelname = xtractorID + "-" + samplepointID;
+
+	std::string modelname = "";
+	if(samplepoints)
+	{
+		std::string samplepointID = mSamplepoints->getFilename();
+		modelname = xtractorID + "-" + samplepointID;
+	}else
+	{
+		modelname = xtractorID;
+	}
 
 	mXtractionTimes->extendFileName(modelname);
 	mFeatures->addDirectoryToPath(modelname);
@@ -64,7 +82,7 @@ bool vretbox::VRETBOXXtraction::init(boost::program_options::variables_map _args
 	LOG_INFO("**** " << "Retrieval Feature Extraction Tool " << "**** ");
 	LOG_INFO("**** " << "Settings");
 	LOG_INFO("**** " << mXtractor->toString());
-	LOG_INFO("**** " << mSamplepoints->getFilename());
+	LOG_INFO("**** " << ((samplepoints) ? mSamplepoints->getFilename() : ""));
 	LOG_INFO("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
 	LOG_INFO("**** " << "Video: " << mVideo->getFile());
 	LOG_INFO("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
@@ -151,22 +169,22 @@ bool vretbox::VRETBOXXtraction::initStaticSignatures()
 	static_cast<defuse::SIGXtractor *>(mXtractor)->mClusterDropThreshold = dropThreshold;
 
 	//how to choose the keyframe for static feature signatures
-	if (mArgs["Cfg.fs.keyframeSelection"].as<std::string>() == "MiddleFrame")
+	if (mArgs["Cfg.static.keyframeSelection"].as<std::string>() == "MiddleFrame")
 	{
 		keyframeSelection = defuse::SIGXtractor::KeyFrameSelection::MiddleFrame;
 	}
-	else if (mArgs["Cfg.fs.keyframeSelection"].as<std::string>() == "FirstFrame")
+	else if (mArgs["Cfg.static.keyframeSelection"].as<std::string>() == "FirstFrame")
 	{
 		keyframeSelection = defuse::SIGXtractor::KeyFrameSelection::FirstFrame;
 	}
-	else if (mArgs["Cfg.fs.keyframeSelection"].as<std::string>() == "LastFrame")
+	else if (mArgs["Cfg.static.keyframeSelection"].as<std::string>() == "LastFrame")
 	{
 		keyframeSelection = defuse::SIGXtractor::KeyFrameSelection::LastFrame;
 	}
 	else
 	{
 		keyframeSelection = defuse::SIGXtractor::KeyFrameSelection::MiddleFrame;
-		LOG_FATAL("Cfg.fs.keyframeSelection " << mArgs["Cfg.ffs.keyframeSelection"].as< std::string >() << " is not defined");
+		LOG_FATAL("Cfg.static.keyframeSelection " << mArgs["Cfg.static.keyframeSelection"].as< std::string >() << " is not defined");
 		areArgsValid = false;
 	}
 
@@ -224,6 +242,40 @@ bool vretbox::VRETBOXXtraction::initFlowbasedSignatures()
 		areArgsValid = false;
 	}
 	static_cast<defuse::FlowDySIGXtractor *>(mXtractor)->mFrameSelection = frameSelection;
+	return areArgsValid;
+}
+
+bool vretbox::VRETBOXXtraction::initComoDescriptor()
+{
+	bool areArgsValid = true;
+	//Init xtractor
+	mXtractor = new defuse::COMOXtractor();
+	mXtractor->mDisaply = mDisplay;
+	mXtractor->mSaveDisplay = mSaveDisplay;
+	mXtractor->mOutput = mOutpudir;
+
+	defuse::COMOXtractor::KeyFrameSelection keyframeSelection;
+
+	//how to choose the keyframe for static feature signatures
+	if (mArgs["Cfg.static.keyframeSelection"].as<std::string>() == "MiddleFrame")
+	{
+		keyframeSelection = defuse::COMOXtractor::KeyFrameSelection::MiddleFrame;
+	}
+	else if (mArgs["Cfg.static.keyframeSelection"].as<std::string>() == "FirstFrame")
+	{
+		keyframeSelection = defuse::COMOXtractor::KeyFrameSelection::FirstFrame;
+	}
+	else if (mArgs["Cfg.static.keyframeSelection"].as<std::string>() == "LastFrame")
+	{
+		keyframeSelection = defuse::COMOXtractor::KeyFrameSelection::LastFrame;
+	}
+	else
+	{
+		keyframeSelection = defuse::COMOXtractor::KeyFrameSelection::MiddleFrame;
+		LOG_FATAL("Cfg.static.keyframeSelection " << mArgs["Cfg.static.keyframeSelection"].as< std::string >() << " is not defined");
+		areArgsValid = false;
+	}
+
 	return areArgsValid;
 }
 

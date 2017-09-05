@@ -137,7 +137,7 @@ boost::program_options::variables_map processProgramOptions(const int argc, cons
 		("Cfg.dfs.resetTracking", boost::program_options::value<bool>()->default_value(true), 
 			"should the tracking samplepoints newly initialized for each frame")
 
-		("Cfg.fs.keyframeSelection", boost::program_options::value<std::string>()->default_value("MiddleFrame"),
+		("Cfg.static.keyframeSelection", boost::program_options::value<std::string>()->default_value("MiddleFrame"),
 			"which frame should be selected: MiddleFrame")
 		("Cfg.fs.initSeeds", boost::program_options::value<int>()->default_value(100), 
 			"how many samplepoints should be clustered")
