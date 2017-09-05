@@ -123,16 +123,28 @@ void defuse::BRISKXtractor::testBrisk(VideoBase* _videobase, int _framedistance)
 
 std::string defuse::BRISKXtractor::toString() const
 {
-	return "";
+	return "BRISK";
 }
 
 void defuse::BRISKXtractor::showProgress(int _step, int _total) const
 {
+	int barWidth = 70;
+	float progress = float(_step / float(_total));
+
+	std::cout << "[";
+	int pos = barWidth * progress;
+	for (int i = 0; i < barWidth; ++i) {
+		if (i < pos) std::cout << "=";
+		else if (i == pos) std::cout << ">";
+		else std::cout << " ";
+	}
+	std::cout << "] " << int(progress * 100.0) << " %\r";
+	std::cout.flush();
 }
 
 std::string defuse::BRISKXtractor::getXtractorID() const
 {
-	return "";
+	return "BRISK";
 }
 
 bool defuse::BRISKXtractor::computeBriskKeypoints(cv::Mat& _grayimage, std::vector<cv::KeyPoint>& _keypoints) const

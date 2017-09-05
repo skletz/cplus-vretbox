@@ -196,7 +196,11 @@ void vretbox::VRETBOXValuation::run()
 	precValues->addDirectoryToPath(mValuator->mModelname);
 	mValuator->writePrecesionRecallValues(precValues, mValuator->mPrecisionRecallCurveValues);
 
-	mValuator->writeCompTimeValues(mValuationTimes, mValuator->mCompDistanceTimes);
+	if(!mRandom)
+	{
+		mValuator->writeCompTimeValues(mValuationTimes, mValuator->mCompDistanceTimes);
+	}
+
 }
 
 defuse::SMD* vretbox::VRETBOXValuation::initSMDistance() const

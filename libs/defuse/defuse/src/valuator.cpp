@@ -500,7 +500,7 @@ void defuse::Valuator::interpolateRecallTo11Steps(
 void defuse::Valuator::writeCompTimeValues(File* _file, std::vector<std::pair<int, double>> _compTimeValues)
 {
 	std::ofstream outfile;
-	outfile.open(_file->getFile(), std::ofstream::out);
+	outfile.open(_file->getFile(), std::ofstream::out | std::ofstream::app);
 
 	if (!outfile.is_open())
 	{

@@ -282,8 +282,9 @@ void defuse::COMOXtractor::calculateGrayscaleHistogram(cv::Mat& gray, cv::Mat& h
 	float range[] = { 0, GRAYSCALE_HISTSIZE - 1 };
 	const float *ranges[] = { range };
 
+	int histSize[] = { GRAYSCALE_HISTSIZE };
 	cv::Mat tmp;
-	cv::calcHist(&gray, 1, 0, cv::Mat(), tmp, 1, &GRAYSCALE_HISTSIZE, ranges, true, false);
+	cv::calcHist(&gray, 1, 0, cv::Mat(), tmp, 1, histSize, ranges, true, false);
 
 	//transpose histogram
 	hist = tmp.col(0).t();
