@@ -10,6 +10,9 @@ namespace defuse {
 	class Hamming : public DistanceBase
 	{
 	public:
+
+    cv::Ptr<cv::BFMatcher> mMatcher;
+
     /**
      * \brief Hamming Distance
      */
@@ -25,6 +28,7 @@ namespace defuse {
      */
     float compute(cv::Mat& _f1, cv::Mat& _f2) const;
 
+    float computeNorm(cv::Mat& _f1, cv::Mat& _f2) const;
 
     /**
     * \brief Prints settings
