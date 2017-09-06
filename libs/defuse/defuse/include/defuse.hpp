@@ -11,12 +11,14 @@
 #include "../src/samplepoints.hpp"
 #include "../src/fdysigxtractor.hpp"
 #include "../src/briskextractor.hpp"
-#include "../src/comoxtractor.hpp"
-#include "../src/fuzzificator.hpp"
+
+#include "../src/featuresignatures.hpp"
+#include "../src/motionhistogram.hpp"
 
 #include "../src/smd.hpp"
 #include "../src/sqfd.hpp"
 #include "../src/minkowski.hpp"
+#include "../src/hamming.hpp"
 
 #include "../src/valuator.hpp"
 #include "../src/evaluatedquery.hpp"
