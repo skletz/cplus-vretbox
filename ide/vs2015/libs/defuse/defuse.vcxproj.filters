@@ -87,6 +87,9 @@
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\hamming.hpp">
       <Filter>Headerdateien\distance</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\mbhxtractor.hpp">
+      <Filter>Headerdateien\xtractors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\defuse_info.cpp">
@@ -137,7 +140,10 @@
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\hamming.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\xtractorbase .cpp">
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\mbhxtractor.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\xtractorbase.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

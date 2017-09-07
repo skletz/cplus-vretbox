@@ -13,6 +13,7 @@
 #include "../src/briskextractor.hpp"
 #include "../src/comoxtractor.hpp"
 #include "../src/fuzzificator.hpp"
+#include "../src/mbhxtractor.hpp"
 
 #include "../src/smd.hpp"
 #include "../src/sqfd.hpp"
