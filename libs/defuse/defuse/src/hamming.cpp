@@ -5,8 +5,8 @@
 
 defuse::Hamming::Hamming()
 {
-  // mMatcher = cv::BFMatcher::create(cv::NORM_HAMMING, false); // without crossCheck
-  // mMatcher = cv::BFMatcher(new cv::BFMatcher(cv::NORM_HAMMING, false);
+  //mMatcher = new cv::BFMatcher(cv::NORM_HAMMING, true); // with crossCheck
+  mMatcher = new cv::BFMatcher(cv::NORM_HAMMING, false); // without crossCheck
 }
 
 float defuse::Hamming::compute(FeaturesBase& _f1, FeaturesBase& _f2)
@@ -19,12 +19,15 @@ float defuse::Hamming::compute(FeaturesBase& _f1, FeaturesBase& _f2)
 float defuse::Hamming::compute(cv::Mat& _f1, cv::Mat& _f2) const
 {
 
-  // Declare one type off matcher
+
   // cv::BFMatcher matcher(cv::NORM_HAMMING, true); // with crossCheck
-  cv::BFMatcher matcher(cv::NORM_HAMMING, false); // without crossCheck
+  // cv::BFMatcher matcher(cv::NORM_HAMMING, false); // without crossCheck
+  // matcher.match(_f1, _f2, matches);
+   
+  // use BF matcher (hamming) to detect closes keypoint matches
   std::vector<cv::DMatch> matches;
-  // mMatcher.match(_f1, _f2, matches);
-  matcher.match(_f1, _f2, matches);
+  mMatcher->match(_f1, _f2, matches);
+
   // sort matches
   float result = 0;
 
