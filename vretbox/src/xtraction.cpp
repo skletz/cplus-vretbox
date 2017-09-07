@@ -58,6 +58,12 @@ bool vretbox::VRETBOXXtraction::init(boost::program_options::variables_map _args
 		samplepoints = false;
 	}
 
+	if (desc == "brisk")
+	{
+		areArgsValid = initBRISKDescriptor();
+		samplepoints = false;
+	}
+
 	//Add modelname to all output destinations
 	std::string xtractorID = mXtractor->getXtractorID();
 
@@ -270,6 +276,40 @@ bool vretbox::VRETBOXXtraction::initComoDescriptor()
 	else
 	{
 		keyframeSelection = defuse::COMOXtractor::KeyFrameSelection::MiddleFrame;
+		LOG_FATAL("Cfg.static.keyframeSelection " << mArgs["Cfg.static.keyframeSelection"].as< std::string >() << " is not defined");
+		areArgsValid = false;
+	}
+
+	return areArgsValid;
+}
+
+bool vretbox::VRETBOXXtraction::initBRISKDescriptor()
+{
+	bool areArgsValid = true;
+	//Init xtractor
+	mXtractor = new defuse::BRISKXtractor();
+	mXtractor->mDisaply = mDisplay;
+	mXtractor->mSaveDisplay = mSaveDisplay;
+	mXtractor->mOutput = mOutpudir;
+
+	defuse::BRISKXtractor::KeyFrameSelection keyframeSelection;
+
+	//how to choose the keyframe for static feature signatures
+	if (mArgs["Cfg.static.keyframeSelection"].as<std::string>() == "MiddleFrame")
+	{
+		keyframeSelection = defuse::BRISKXtractor::KeyFrameSelection::MiddleFrame;
+	}
+	else if (mArgs["Cfg.static.keyframeSelection"].as<std::string>() == "FirstFrame")
+	{
+		keyframeSelection = defuse::BRISKXtractor::KeyFrameSelection::FirstFrame;
+	}
+	else if (mArgs["Cfg.static.keyframeSelection"].as<std::string>() == "LastFrame")
+	{
+		keyframeSelection = defuse::BRISKXtractor::KeyFrameSelection::LastFrame;
+	}
+	else
+	{
+		keyframeSelection = defuse::BRISKXtractor::KeyFrameSelection::MiddleFrame;
 		LOG_FATAL("Cfg.static.keyframeSelection " << mArgs["Cfg.static.keyframeSelection"].as< std::string >() << " is not defined");
 		areArgsValid = false;
 	}

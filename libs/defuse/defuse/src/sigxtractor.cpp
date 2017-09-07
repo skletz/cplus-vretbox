@@ -118,33 +118,14 @@ float defuse::SIGXtractor::getLpDistance()
 	return mP;
 }
 
-double defuse::SIGXtractor::computeStaticSignatures(cv::VideoCapture& _video, std::string filename, cv::OutputArray _signatures) const
+double defuse::SIGXtractor::computeStaticSignatures(cv::VideoCapture& _video, std::string filename, cv::OutputArray& _signatures)
 {
 	int framecnt = int(_video.get(CV_CAP_PROP_FRAME_COUNT));
 	int width = int(_video.get(CV_CAP_PROP_FRAME_WIDTH));
 	int height = int(_video.get(CV_CAP_PROP_FRAME_HEIGHT));
 
-	int framenr = framecnt;
-
-	if (mKeyFrameSelection == SIGXtractor::KeyFrameSelection::MiddleFrame) //use middle frame
-	{
-		framenr = int(framecnt / float(2));
-		_video.set(CV_CAP_PROP_POS_FRAMES, framenr);
-	}
-	else if (mKeyFrameSelection == SIGXtractor::KeyFrameSelection::FirstFrame) //use first frame
-	{
-		framenr = 1;
-		_video.set(CV_CAP_PROP_POS_FRAMES, framenr);
-	}
-	else if (mKeyFrameSelection == SIGXtractor::KeyFrameSelection::LastFrame) //use last frame
-	{
-		_video.set(CV_CAP_PROP_POS_FRAMES, framenr);
-	}
-	else
-	{
-		LOG_FATAL("Keyframe selection " << mKeyFrameSelection << " not implemented: Use middle, first or last frame");
-		return false;
-	}
+	int framenr = getKeyframeNumber(framecnt);
+	_video.set(CV_CAP_PROP_POS_FRAMES, framenr);
 
 	cv::Mat image, signatures;
 
@@ -505,23 +486,7 @@ float defuse::SIGXtractor::computeLp(cv::Mat& _f1, int idx1, cv::Mat& _f2, int i
 	return float(result);
 }
 
-void defuse::SIGXtractor::showProgress(int _step, int _total) const
-{
-	int barWidth = 70;
-	float progress = float(_step / float(_total));
-
-	std::cout << "[";
-	int pos = barWidth * progress;
-	for (int i = 0; i < barWidth; ++i) {
-		if (i < pos) std::cout << "=";
-		else if (i == pos) std::cout << ">";
-		else std::cout << " ";
-	}
-	std::cout << "] " << int(progress * 100.0) << " %\r";
-	std::cout.flush();
-}
-
-std::string defuse::SIGXtractor::toString() const
+std::string defuse::SIGXtractor::toString()
 {
 	std::stringstream st;
 
@@ -544,22 +509,10 @@ std::string defuse::SIGXtractor::toString() const
 	st << mGrayscaleBits << ", ";
 	st << "windowRadius: ";
 	st << mWindowRadius << ", ";
-	st << "keyframeselection: ";
+	std::string tmp = st.str();
+	tmp += getKeyframeSelectionAsString();
 
-	if(mKeyFrameSelection == KeyFrameSelection::FirstFrame)
-	{
-		st << "first";
-	}
-	else if(mKeyFrameSelection == KeyFrameSelection::MiddleFrame)
-	{
-		st << "middle";
-	}
-	else if (mKeyFrameSelection == KeyFrameSelection::LastFrame)
-	{
-		st << "last";
-	}
-
-	return st.str();
+	return tmp;
 }
 
 std::string defuse::SIGXtractor::getXtractorID() const

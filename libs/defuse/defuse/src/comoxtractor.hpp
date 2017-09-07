@@ -60,23 +60,16 @@ namespace defuse {
 		Fuzzificator* mFuzzificator;
 
 	public:
-		enum KeyFrameSelection { FirstFrame, MiddleFrame, LastFrame };
-
-		//Default Setting of flow-based sampling
-		KeyFrameSelection mKeyFrameSelection = MiddleFrame;
 
 		std::string mName = "Static COMO Descriptor Xtractor";
-
 
 		COMOXtractor();
 
 		FeaturesBase* xtract(VideoBase* _videobase) override;
 
-		std::string toString() const override;
+		std::string toString() override;
 
 		std::string getXtractorID() const override;
-
-		void showProgress(int _step, int _total) const override;
 
 		double computeCOMODescriptor(cv::VideoCapture& _video, std::string filename, cv::OutputArray& _descriptor);
 

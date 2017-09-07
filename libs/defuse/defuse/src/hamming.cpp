@@ -86,10 +86,10 @@ float defuse::Hamming::computeNorm(cv::Mat& _f1, cv::Mat& _f2) const
 
 std::string defuse::Hamming::toString() const
 {
-	return "cvHamming, Matcher: cvBF";
+	return "cvHamming, Matcher: cvBFwC";
 }
 
 std::string defuse::Hamming::getDistanceID() const
 {
-	return "cvHamming_cvBF";
+	return "CVHAMBF_WC";
 }

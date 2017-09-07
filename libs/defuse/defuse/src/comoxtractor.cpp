@@ -27,7 +27,7 @@ defuse::FeaturesBase* defuse::COMOXtractor::xtract(VideoBase* _videobase)
 	return features;
 }
 
-std::string defuse::COMOXtractor::toString() const
+std::string defuse::COMOXtractor::toString()
 {
 	std::stringstream st;
 
@@ -42,22 +42,10 @@ std::string defuse::COMOXtractor::toString() const
 	st << FUZZY_HISTSIZE << ", ";
 	st << "grayscale histsize: ";
 	st << GRAYSCALE_HISTSIZE << ", ";
-	st << "keyframeselection: ";
+	std::string tmp = st.str();
+	tmp += getKeyframeSelectionAsString();
 
-	if (mKeyFrameSelection == KeyFrameSelection::FirstFrame)
-	{
-		st << "first";
-	}
-	else if (mKeyFrameSelection == KeyFrameSelection::MiddleFrame)
-	{
-		st << "middle";
-	}
-	else if (mKeyFrameSelection == KeyFrameSelection::LastFrame)
-	{
-		st << "last";
-	}
-
-	return st.str();
+	return tmp;
 }
 
 std::string defuse::COMOXtractor::getXtractorID() const
@@ -81,49 +69,14 @@ std::string defuse::COMOXtractor::getXtractorID() const
 	return st.str();
 }
 
-void defuse::COMOXtractor::showProgress(int _step, int _total) const
-{
-	int barWidth = 70;
-	float progress = float(_step / float(_total));
-
-	std::cout << "[";
-	int pos = barWidth * progress;
-	for (int i = 0; i < barWidth; ++i) {
-		if (i < pos) std::cout << "=";
-		else if (i == pos) std::cout << ">";
-		else std::cout << " ";
-	}
-	std::cout << "] " << int(progress * 100.0) << " %\r";
-	std::cout.flush();
-}
-
 double defuse::COMOXtractor::computeCOMODescriptor(cv::VideoCapture& _video, std::string filename, cv::OutputArray& _descriptor)
 {
 	int framecnt = int(_video.get(CV_CAP_PROP_FRAME_COUNT));
 	int width = int(_video.get(CV_CAP_PROP_FRAME_WIDTH));
 	int height = int(_video.get(CV_CAP_PROP_FRAME_HEIGHT));
 
-	int framenr = framecnt;
-
-	if (mKeyFrameSelection == MiddleFrame) //use middle frame
-	{
-		framenr = int(framecnt / float(2));
-		_video.set(CV_CAP_PROP_POS_FRAMES, framenr);
-	}
-	else if (mKeyFrameSelection == FirstFrame) //use first frame
-	{
-		framenr = 1;
-		_video.set(CV_CAP_PROP_POS_FRAMES, framenr);
-	}
-	else if (mKeyFrameSelection == LastFrame) //use last frame
-	{
-		_video.set(CV_CAP_PROP_POS_FRAMES, framenr);
-	}
-	else
-	{
-		LOG_FATAL("Keyframe selection " << mKeyFrameSelection << " not implemented: Use middle, first or last frame");
-		return false;
-	}
+	int framenr = getKeyframeNumber(framecnt);
+	_video.set(CV_CAP_PROP_POS_FRAMES, framenr);
 
 	cv::Mat image, como;
 

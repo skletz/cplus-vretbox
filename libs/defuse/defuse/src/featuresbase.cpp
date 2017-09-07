@@ -48,6 +48,8 @@ std::string defuse::FeaturesBase::getMatType(cv::Mat inputMat) const
 	switch (depth) {
 	case CV_32F: r = "32F";break;
 	case CV_64F: r = "64F";break;
+	case CV_8U: r = "8U"; break;
+	case CV_32S: r = "32S"; break;
 	default:     r = "User";break;
 	}
 	r += "C";
@@ -76,6 +78,14 @@ int defuse::FeaturesBase::getMatType(std::string type) const
 	else if (matType == "64F")
 	{
 		r = CV_64F;
+	}
+	else if (matType == "8U")
+	{
+		r = CV_8U;
+	}
+	else if (matType == "32S")
+	{
+		r = CV_32S;
 	}
 	else
 	{
@@ -211,11 +221,24 @@ bool defuse::FeaturesBase::writeTextfile(std::string _file)
 	}
 	std::string mattype = getMatType(mVectors);
 	stream << mVectors.rows << " " << mVectors.cols << " " << mattype << std::endl;
+
+	if(mVectors.type() == CV_8U)
+	{
+		mVectors.convertTo(mVectors, CV_32S);
+	}
+
 	for (int i = 0; i < mVectors.rows; i++)
 	{
 		for (int j = 0; j < mVectors.cols; j++)
 		{
-			stream << mVectors.at<float>(i,j) << " " ;
+			if(mVectors.type() == CV_32F)
+				stream << mVectors.at<float>(i,j) << " " ;
+			else if (mVectors.type() == CV_64F)
+				stream << mVectors.at<double>(i, j) << " ";
+			else if (mVectors.type() == CV_32S)
+				stream << mVectors.at<int>(i, j) << " ";
+			else
+				LOG_ERROR("Error: writeTextFile: Mat type not supported!");
 		}
 		stream << std::endl;
 	}
@@ -242,6 +265,10 @@ bool defuse::FeaturesBase::readTextfile(std::string _file)
 	linestream >> width >> height >> type;
 	int matType = getMatType(type);
 
+	bool convertToUChar = false;
+	if (matType == CV_32S)
+		convertToUChar = true;
+
 	cv::Mat mat(width, height, matType);
 	for (int i = 0; i < width; i++)
 	{
@@ -252,11 +279,21 @@ bool defuse::FeaturesBase::readTextfile(std::string _file)
 			{
 				float val;
 				values >> val;
-				mat.at<float>(i, j) = val;
+				if (matType == CV_32F)
+					mat.at<float>(i, j) = val;
+				else if (matType == CV_64F)
+					mat.at<double>(i, j) = val;
+				else if (matType == CV_32S)
+					mat.at<int>(i, j) = val;
+				else
+					LOG_ERROR("Error: readTextFile: Mat type not supported!");
 			}
 		}
 
 	}
+
+	if(convertToUChar)
+		mat.convertTo(mat, CV_8U);
 
 	mVectors = mat;
 

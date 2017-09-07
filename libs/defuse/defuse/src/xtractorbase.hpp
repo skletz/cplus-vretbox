@@ -12,6 +12,16 @@ namespace defuse {
 	{
 
 	public:
+		enum KeyFrameSelection { FirstFrame, MiddleFrame, LastFrame };
+
+		enum FrameSelection { FramesPerVideo, FramesPerSecond, All };
+
+		//Default Setting of flow-based sampling
+		KeyFrameSelection mKeyFrameSelection = MiddleFrame;
+
+		//Default Setting of flow-based sampling
+		FrameSelection mFrameSelection = FramesPerVideo;
+
 
 		bool mDisaply = false;
 
@@ -33,7 +43,7 @@ namespace defuse {
 		* \brief Get xtractor as string
 		* \return xtractor as string
 		*/
-		virtual std::string toString() const = 0;
+		virtual std::string toString() = 0;
 
 		/**
 		* \brief Get xtractor as ID
@@ -46,7 +56,15 @@ namespace defuse {
 		* \param _step current step
 		* \param _total total steps
 		*/
-		virtual void showProgress(int _step, int _total) const = 0;
+		void showProgress(int _step, int _total) const;
+
+		int getKeyframeNumber(int framecnt) const;
+
+		void getFrameRatio(int framecnt, int maxframes, int& step, int& frameSize) const;
+
+		std::string getKeyframeSelectionAsString() const;
+
+		std::string getFrameRatioAsString() const;
 
 	};
 }

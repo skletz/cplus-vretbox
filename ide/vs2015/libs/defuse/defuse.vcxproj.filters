@@ -137,6 +137,9 @@
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\hamming.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\xtractorbase .cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\libs\defuse\Makefile" />

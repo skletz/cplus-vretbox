@@ -64,15 +64,12 @@ namespace defuse {
 	public:
 
 		std::string mName = "Static Feature Signatures Xtractor";
-		
-		enum KeyFrameSelection { FirstFrame, MiddleFrame, LastFrame };
 
 		FSIndex indices;
-		LABranges ranges;
-		CENormalize normalizer;
 
-		//Default Setting of flow-based sampling
-		KeyFrameSelection mKeyFrameSelection = MiddleFrame;
+		LABranges ranges;
+
+		CENormalize normalizer;
 
 		//Default Setting of the k-means clustering
 		int mInitSeeds;
@@ -147,7 +144,7 @@ namespace defuse {
 		 * \brief 
 		 * \return 
 		 */
-		std::string toString() const override;
+		std::string toString() override;
 
 		/**
 		 * \brief 
@@ -156,11 +153,10 @@ namespace defuse {
 		std::string getXtractorID() const override;
 	
 		void deNormalizePoints(std::vector<cv::Point2f> samplepoints, int width, int height, std::vector<cv::Point2f>& output) const;
-
-		void showProgress(int _step, int _total) const override;
-
 	
-		double computeStaticSignatures(cv::VideoCapture& _video, std::string filename, cv::OutputArray _signatures) const;
+		double computeStaticSignatures(
+			cv::VideoCapture& _video, std::string filename, cv::OutputArray& _signatures);
+
 		void getSamples(cv::Mat& frame, std::vector<cv::Point2f> initPoints, cv::Mat& samples) const;
 		void getClusters(cv::Mat& samples, cv::Mat& signatures) const;
 	private:

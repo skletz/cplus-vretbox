@@ -17,12 +17,12 @@ printf "%-20s %s\n" "input directory of all videos :"  "$VRET_DATA"
 printf "%-20s %s\n" "output directory of all evaluation files :"  "$VRET_EVAL"
 
 timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
-LOGFILE="$VRET_EVAL"/logs/como-xtraction-$timestamp.out
+LOGFILE="$VRET_EVAL"/logs/brisk-xtraction-$timestamp.out
 
 echo "LOGFILE: " $LOGFILE
 
 #CONFIGFILE="$VRET_EVAL"/configs/Sig_Xtract_Test.ini
-CONFIGFILE=../testdata/config-files/COMO-Extraction.ini
+CONFIGFILE=../testdata/config-files/BRISK-Extraction.ini
 
 #Settings
 samplepoints=(8000)

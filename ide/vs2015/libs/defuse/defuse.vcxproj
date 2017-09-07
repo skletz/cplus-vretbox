@@ -107,6 +107,7 @@
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\sqfd.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\valuator.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\videobase.cpp" />
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\xtractorbase .cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cpluslogger\cpluslogger.vcxproj">

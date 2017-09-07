@@ -72,40 +72,10 @@ bool defuse::FlowDySIGXtractor::computeDynamicSignatures(cv::VideoCapture& _vide
 	int width = _video.get(CV_CAP_PROP_FRAME_WIDTH);
 	int height = _video.get(CV_CAP_PROP_FRAME_HEIGHT);
 
-	int frameSize = framecnt;
-	int step = 1;
+	int frameSize = 0;
+	int step = 0;
 
-	if(framecnt == 0)
-	{
-		LOG_FATAL("Fatal error: Video " << filename << " has no frames!");
-	}
-
-	if (mFrameSelection == FramesPerVideo)
-	{
-		step = static_cast<int>(framecnt / float(mMaxFrames));
-		frameSize = (step * mMaxFrames) - 1;
-
-	}
-	else if (mFrameSelection == FramesPerSecond) 
-	{
-		frameSize = framecnt;
-		if (mMaxFrames < framecnt)
-		{
-			step = mMaxFrames;
-		}
-	}
-	else
-	{
-		LOG_INFO("All frames are used");
-		frameSize = framecnt;
-		step = 1;
-	}
-
-	if(step == 0)
-	{
-		frameSize = framecnt;
-		step = 1;
-	}
+	getFrameRatio(framecnt, mMaxFrames, step, frameSize);
 
 	std::vector<cv::Point2f> currPoints;
 	std::vector<cv::Point2f> initPoints;
@@ -126,8 +96,8 @@ bool defuse::FlowDySIGXtractor::computeDynamicSignatures(cv::VideoCapture& _vide
 	{
 		curFrameNr = iFrame;
 		counter++;
-		if(mFrameSelection == FramesPerVideo || mFrameSelection == FramesPerSecond)
-			std::cout << "frame: " << counter << " framenr: " << iFrame << std::endl;
+
+		showProgress(iFrame, frameSize);
 
 		_video.set(CV_CAP_PROP_POS_FRAMES, iFrame);
 		_video.grab();
@@ -514,7 +484,7 @@ void defuse::FlowDySIGXtractor::getMotionSamples(
 	samples.copyTo(out);
 }
 
-std::string defuse::FlowDySIGXtractor::toString() const
+std::string defuse::FlowDySIGXtractor::toString()
 {
 	std::string base = SIGXtractor::toString();
 	std::stringstream st;
@@ -525,16 +495,9 @@ std::string defuse::FlowDySIGXtractor::toString() const
 	st << mMaxFrames << ", ";
 	st << "resetTracking: ";
 	st << mResetTracking << ", ";
-	st << "frameSelection: ";
-	if (mFrameSelection == FrameSelection::FramesPerVideo)
-	{
-		st << "framespervideo";
-	}
-	else if (mFrameSelection == FrameSelection::FramesPerSecond)
-	{
-		st << "framespersecond";
-	}
-
+	std::string frameSelection;
+	frameSelection = getFrameRatioAsString();
+	base += frameSelection;
 	base += st.str();
 	return base;
 }
@@ -556,12 +519,7 @@ std::string defuse::FlowDySIGXtractor::getXtractorID() const
 	return base;
 }
 
-void defuse::FlowDySIGXtractor::showProgress(int _step, int _total) const
-{
-}
-
-
-double defuse::FlowDySIGXtractor::square(int a)
+double defuse::FlowDySIGXtractor::square(int a) const
 {
 	return a * a;
 }

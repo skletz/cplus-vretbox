@@ -16,11 +16,6 @@ namespace defuse {
 
 		std::string mName = "Dynamic Feature Signatures 1 Xtractor";
 		
-		enum FrameSelection { FramesPerVideo, FramesPerSecond, All};
-
-		//Default Setting of flow-based sampling
-		FrameSelection mFrameSelection = FlowDySIGXtractor::FrameSelection::FramesPerVideo;
-
 		int mMaxFrames;
 
 		bool mResetTracking;
@@ -40,11 +35,9 @@ namespace defuse {
 
 		FeaturesBase* xtract(VideoBase* _videobase) override;
 
-		std::string toString() const override;
+		std::string toString() override;
 
 		std::string getXtractorID() const override;
-
-		void showProgress(int _step, int _total) const override;
 
 		bool computeDynamicSignatures(cv::VideoCapture& _video, std::string filename, cv::OutputArray _signatures);
 
@@ -54,12 +47,14 @@ namespace defuse {
 			int height, int width, cv::Mat& out);
 
 		void drawMotionDirection(const cv::Mat _source, cv::Mat _samples, cv::Mat& _result);
+
 		void drawResidualImage(const cv::Mat _current, const cv::Mat _previous, cv::Mat& _result);
 
 		void drawDynamicSamples(const cv::Mat _source, const cv::Mat _samples, cv::Mat& _result);
+
 		float angleBetween(const cv::Point &v1, const cv::Point &v2);
 
-		double square(int a);
+		double square(int a) const;
 
 	};
 }
