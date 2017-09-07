@@ -11,9 +11,8 @@
 #include "../src/samplepoints.hpp"
 #include "../src/fdysigxtractor.hpp"
 #include "../src/briskextractor.hpp"
-
-#include "../src/featuresignatures.hpp"
-#include "../src/motionhistogram.hpp"
+#include "../src/comoxtractor.hpp"
+#include "../src/fuzzificator.hpp"
 
 #include "../src/smd.hpp"
 #include "../src/sqfd.hpp"
