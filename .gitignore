@@ -273,3 +273,6 @@ testdata/surgical_data
 testdata/surgical-data
 testdata/trecvid-data
 testdata/trecvid16_data
+
+opencv_brisk/*
+brisk_data/*
