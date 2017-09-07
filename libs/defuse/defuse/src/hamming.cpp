@@ -19,11 +19,10 @@ float defuse::Hamming::compute(FeaturesBase& _f1, FeaturesBase& _f2)
 float defuse::Hamming::compute(cv::Mat& _f1, cv::Mat& _f2) const
 {
 
-
   // cv::BFMatcher matcher(cv::NORM_HAMMING, true); // with crossCheck
   // cv::BFMatcher matcher(cv::NORM_HAMMING, false); // without crossCheck
   // matcher.match(_f1, _f2, matches);
-   
+
   // use BF matcher (hamming) to detect closes keypoint matches
   std::vector<cv::DMatch> matches;
   mMatcher->match(_f1, _f2, matches);
