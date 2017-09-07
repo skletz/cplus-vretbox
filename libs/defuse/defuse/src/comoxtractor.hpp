@@ -78,7 +78,7 @@ namespace defuse {
 
 		void showProgress(int _step, int _total) const override;
 
-		double computeCOMODescriptor(cv::VideoCapture& _video, std::string filename, cv::OutputArray _descriptor);
+		double computeCOMODescriptor(cv::VideoCapture& _video, std::string filename, cv::OutputArray& _descriptor);
 
 		/**
 		* \brief Describes each block of an image. The image is subdivided into 40*40 blocks (max) or 20*20 blocks (min). If the block contains enough texture information, the color (HSV) as well as texture (HuMoments) are calculated and summed up in the descriptor.

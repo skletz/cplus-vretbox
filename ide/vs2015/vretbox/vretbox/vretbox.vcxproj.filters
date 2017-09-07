@@ -63,5 +63,8 @@
     <None Include="..\..\..\..\testdata\config-files\CNN-Evaluation.ini">
       <Filter>Ressourcendateien</Filter>
     </None>
+    <None Include="..\..\..\..\testdata\config-files\COMO-Extraction.ini">
+      <Filter>Ressourcendateien</Filter>
+    </None>
   </ItemGroup>
 </Project>

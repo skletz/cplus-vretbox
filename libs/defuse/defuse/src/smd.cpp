@@ -2,12 +2,20 @@
 #include "minkowski.hpp"
 #include <iostream>
 #include <sstream>
+#include <opencv2/features2d.hpp>
+#include <map>
 
 defuse::SMD::SMD(Minkowski* _GDDistance, int _direction, float _lambda)
 {
 	mGDDistance = _GDDistance;
 	mDirection = _direction;
 	mLambda = _lambda;
+
+	if(_GDDistance->mDistance == 1)
+	{
+		mMatcher = new cv::BFMatcher(cv::NORM_L1);
+	}
+	mMatcher = new cv::BFMatcher(cv::NORM_L2);
 }
 
 float defuse::SMD::compute(FeaturesBase& _f1, FeaturesBase& _f2)
@@ -44,58 +52,104 @@ float defuse::SMD::compute(cv::Mat& _f1, int _idx1, cv::Mat& _f2, int _idx2) con
 float defuse::SMD::asymmetricQuery(cv::Mat& _f1, cv::Mat& _f2) const
 {
 	float result = 0;
+	float minDist = FLT_MAX;
 
 	//for each representative in f1, find
 	//the most similar in f2 (nearest neighbor matching)
-	for (int i = 0; i < _f1.rows; i++)
+	//int rows1 = _f1.rows;
+	//int rows2 = _f2.rows;
+
+	//for (int i = 0; i < rows1; i++)
+	//{
+	//	minDist = FLT_MAX;
+
+	//	for (int j = 0; j < rows2; j++)
+	//	{
+	//		float dist = 0.0;
+
+	//		dist = compute(_f1, i, _f2, j);
+
+	//		dist = weightedDistance(_f1, i, dist);
+
+	//		if (dist < minDist)
+	//		{
+	//			minDist = dist;
+	//		}
+	//	}
+
+	//	result += minDist;
+	//}
+
+	//Speedup by a factor of 10
+	int size = std::min(_f2.rows, _f1.rows);
+
+	std::vector<std::vector<cv::DMatch>> matches = std::vector<std::vector<cv::DMatch>>(size);
+
+	mMatcher->knnMatch(_f1, _f2, matches, 1);
+
+	minDist = FLT_MAX;
+	int counter = 0;
+	for(int i = 0; i < matches.size(); i++)
 	{
-		float minDist = FLT_MAX;
-
-		for (int j = 0; j < _f2.rows; j++)
+		float dist = 0.0;
+		if(matches.at(i).size() > 0)
 		{
-			float dist = 0.0;
-
-			dist = compute(_f1, i, _f2, j);
-
-			dist = weightedDistance(_f1, i, dist);
-
-			if (dist < minDist)
-			{
-				minDist = dist;
-			}
+			dist = matches.at(i).at(0).distance;
+			result += weightedDistance(_f1, matches.at(i).at(0).queryIdx, dist);
 		}
-
-		result += minDist;
 	}
+
 	return result;
 }
 
 float defuse::SMD::assymetricDB(cv::Mat& _f1, cv::Mat& _f2) const
 {
 	float result = 0;
+	float minDist = FLT_MAX;
 
 	//for each representative in f2, find
 	//the most similar in f1 (nearest neighbor matching)
-	for (int i = 0; i < _f2.rows; i++)
+	//int rows1 = _f1.rows;
+	//int rows2 = _f2.rows;
+	//for (int i = 0; i < rows2; i++)
+	//{
+	//	minDist = FLT_MAX;
+
+	//	for (int j = 0; j < rows1; j++)
+	//	{
+	//		float dist = 0.0;
+
+	//		dist = compute(_f2, i, _f1, j);
+	//		dist = weightedDistance(_f2, i, dist);
+
+	//		if (dist < minDist)
+	//		{
+	//			minDist = dist;
+	//		}
+	//	}
+
+	//	result += minDist;
+	//}
+
+	//Speedup by a factor of 10
+	int size = std::min(_f2.rows, _f1.rows);
+
+	std::vector<std::vector<cv::DMatch>> matches = std::vector<std::vector<cv::DMatch>>(size);
+
+	mMatcher->knnMatch(_f2, _f1, matches, 1);
+
+	minDist = FLT_MAX;
+	int counter = 0;
+	for (int i = 0; i < matches.size(); i++)
 	{
-		float minDist = FLT_MAX;
-
-		for (int j = 0; j < _f1.rows; j++)
+		float dist = 0.0;
+		if (matches.at(i).size() > 0)
 		{
-			float dist = 0.0;
-
-			dist = compute(_f2, i, _f1, j);
-
-			dist = weightedDistance(_f2, i, dist);
-
-			if (dist < minDist)
-			{
-				minDist = dist;
-			}
+			dist = matches.at(i).at(0).distance;
+			result += weightedDistance(_f2, matches.at(i).at(0).queryIdx, dist);
 		}
-
-		result += minDist;
 	}
+
 	return result;
 }
 
@@ -169,7 +223,8 @@ int defuse::SMD::nearestNeighbor(cv::Mat& _f1, int idx1, cv::Mat& _f2) const
 float defuse::SMD::weightedDistance(cv::Mat& _f1, int idx1, float distance) const
 {
 	float dist = 0.0;
-	dist = distance * _f1.at<float>(idx1, _f1.cols - 1); //last position contains the weights
+	int weightIdx = _f1.cols - 1;//last position contains the weights
+	dist = distance * _f1.at<float>(idx1, weightIdx); 
 	return dist;
 }
 	 

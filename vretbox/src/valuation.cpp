@@ -158,6 +158,8 @@ void vretbox::VRETBOXValuation::run()
 		}else
 		{
 			pool->addTask(boost::bind(&defuse::Valuator::computeMAPAtK, mValuator, mAtK, group, (*iQueryGroup).second, mDistance, mModel));
+
+			//mValuator->computeMAPAtK(mAtK, group, (*iQueryGroup).second, mDistance, mModel);
 		}
 
 	
@@ -406,7 +408,7 @@ void vretbox::VRETBOXValuation::showProgress(int _step, int _total) const
 vretbox::VRETBOXValuation::~VRETBOXValuation()
 {
 	delete mValuationTimes;
-	delete mDistance;
+	//delete mDistance;
 	delete mXtractor;
 	delete mValuator;
 	delete mInput;

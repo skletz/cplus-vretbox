@@ -16,12 +16,12 @@ printf "%-20s %s\n" "input directory of all features :"  "$VRET_DATA"
 printf "%-20s %s\n" "output directory of all evaluation files :"  "$VRET_EVAL"
 
 timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
-LOGFILE="$VRET_EVAL"/logs/sfs-smd-evaluation-$timestamp.out
-#LOGFILE=sfs-smd-evaluation-speedup.out
+LOGFILE="$VRET_EVAL"/logs/como-evaluation-$timestamp.out
+
 echo "LOGFILE: " $LOGFILE
 
 #CONFIGFILE="$VRET_EVAL"/configs/Sig_Xtract_Test.ini
-CONFIGFILE=../testdata/config-files/SFS-Evaluation.ini
+CONFIGFILE=../testdata/config-files/COMO-Evaluation.ini
 
 #Default
 BIN="builds/linux/bin"

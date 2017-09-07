@@ -4,6 +4,7 @@
 #include "minkowski.hpp"
 #include <opencv2/core/mat.hpp>
 #include "distancebase.hpp"
+#include <opencv2/features2d.hpp>
 
 /**
  * \brief Signature Matching Distance (SMD)
@@ -11,6 +12,8 @@
  * @author skletz
  * @version 2.0 25/04/17
  */
+
+
 namespace defuse {
 
 	class SMD : public DistanceBase
@@ -19,6 +22,11 @@ namespace defuse {
 		Minkowski* mGDDistance;
 		int mDirection;
 		float mLambda = 1.0;
+
+		//cv::Ptr<cv::BFMatcher> mMatcher;
+
+		cv::Ptr<cv::DescriptorMatcher> mMatcher;
+
 
 	public:
 

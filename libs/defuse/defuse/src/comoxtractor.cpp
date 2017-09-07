@@ -34,7 +34,7 @@ std::string defuse::COMOXtractor::toString() const
 	st << "xtractor: como, ";
 	st << "max blocksize: ";
 	st << BLOCKSIZE_MAX << ", ";
-	st << "max blocksize: ";
+	st << "min blocksize: ";
 	st << BLOCKSIZE_MIN << ", ";
 	st << "texture histsize: ";
 	st << TEXTURE_HISTSIZE << ", ";
@@ -97,7 +97,7 @@ void defuse::COMOXtractor::showProgress(int _step, int _total) const
 	std::cout.flush();
 }
 
-double defuse::COMOXtractor::computeCOMODescriptor(cv::VideoCapture& _video, std::string filename, cv::OutputArray _descriptor)
+double defuse::COMOXtractor::computeCOMODescriptor(cv::VideoCapture& _video, std::string filename, cv::OutputArray& _descriptor)
 {
 	int framecnt = int(_video.get(CV_CAP_PROP_FRAME_COUNT));
 	int width = int(_video.get(CV_CAP_PROP_FRAME_WIDTH));

@@ -36,13 +36,13 @@ float defuse::Minkowski::compute(cv::Mat& _f1, int _idx1, cv::Mat& _f2, int _idx
 
 float defuse::Minkowski::computeL1(cv::Mat& _f1, cv::Mat& _f2) const
 {
-	float result = float(cv::norm(_f1 - _f2, cv::NORM_L1));
+	float result = float(cv::norm(_f1, _f2, cv::NORM_L1));
 	return result;
 }
 
 float defuse::Minkowski::computeL2(cv::Mat& _f1, cv::Mat& _f2) const
 {
-	float result = float(cv::norm(_f1 - _f2, cv::NORM_L2));
+	float result = float(cv::norm(_f1, _f2, cv::NORM_L2));
 	return result;
 }
 
