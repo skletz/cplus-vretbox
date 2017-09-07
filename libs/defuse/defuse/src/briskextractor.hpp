@@ -13,6 +13,9 @@ namespace defuse
   public:
     cv::Ptr<cv::BRISK> mKeypointDetector;
     cv::Ptr<cv::BRISK> mDescriptorExtactor;
+    enum KeyFrameSelection { FirstFrame, MiddleFrame, LastFrame };
+    //Default Setting of flow-based sampling
+    KeyFrameSelection mKeyFrameSelection = MiddleFrame;
 
     BRISKXtractor();
     FeaturesBase* xtract(VideoBase* _videobase) override;

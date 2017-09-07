@@ -34,7 +34,7 @@ float defuse::Hamming::compute(cv::Mat& _f1, cv::Mat& _f2) const
   { double dist = matches[i].distance;
     result += float(dist);
   }
-
+	// LOG_INFO("# BF " << matches.size())
   result /= float(matches.size());
 
   //-- Quick calculation of max and min distances between keypoints
@@ -75,6 +75,8 @@ float defuse::Hamming::computeNorm(cv::Mat& _f1, cv::Mat& _f2) const
     }
     result += minDist;
   }
+
+	// LOG_INFO("# Norm " << _f1.rows)
 
   result /= float(_f1.rows);
 

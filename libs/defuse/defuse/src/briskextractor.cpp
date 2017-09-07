@@ -20,7 +20,27 @@ defuse::FeaturesBase* defuse::BRISKXtractor::xtract(VideoBase* _videobase)
   }
 
   int frameNumbers = (int) stream.get(CV_CAP_PROP_FRAME_COUNT);
-  int keyframe = frameNumbers / 2;
+  int keyframe = frameNumbers-1;
+
+  if (mKeyFrameSelection == BRISKXtractor::KeyFrameSelection::MiddleFrame) //use middle frame
+  {
+    keyframe = int(frameNumbers / float(2));
+    stream.set(CV_CAP_PROP_POS_FRAMES, keyframe);
+  }
+  else if (mKeyFrameSelection == BRISKXtractor::KeyFrameSelection::FirstFrame) //use first frame
+  {
+    keyframe = 1;
+    stream.set(CV_CAP_PROP_POS_FRAMES, keyframe);
+  }
+  else if (mKeyFrameSelection == BRISKXtractor::KeyFrameSelection::LastFrame) //use last frame
+  {
+    stream.set(CV_CAP_PROP_POS_FRAMES, keyframe);
+  }
+  else
+  {
+    LOG_FATAL("Keyframe selection " << mKeyFrameSelection << " not implemented: Use middle, first or last frame");
+    return false;
+  }
 
   // LOG_INFO("Length of input Video: " << frameNumbers);
   // LOG_INFO("Keyframe: " << keyframeA);
