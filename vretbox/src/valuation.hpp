@@ -80,6 +80,8 @@ namespace vretbox {
 
 		defuse::Minkowski* initMinkowskiDistance() const;
 
+		defuse::Hamming* initHammingDistance() const;
+
 		std::unique_lock<std::mutex> locking();
 
 		void showProgress(int _step, int _total) const;

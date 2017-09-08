@@ -4,7 +4,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-std::string FEATUREFILE = "../../../../../testdata/trecvid-data/features/CNN_Features/35345_1.csv";
+std::string FEATUREFILE = "../../../../../testdata/trecvid16_data/features/CNN_GoogleNet_Pool5/35345_1.csv";
 
 namespace vretbox
 {

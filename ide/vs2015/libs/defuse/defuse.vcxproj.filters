@@ -90,6 +90,9 @@
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\mbhxtractor.hpp">
       <Filter>Headerdateien\xtractors</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\hogxtractor.hpp">
+      <Filter>Headerdateien\xtractors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\defuse_info.cpp">
@@ -144,6 +147,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\xtractorbase.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\hogxtractor.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

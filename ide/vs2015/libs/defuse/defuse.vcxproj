@@ -79,6 +79,7 @@
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\featuresbase.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\fuzzificator.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\hamming.hpp" />
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\hogxtractor.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\mbhxtractor.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\minkowski.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\rankedresult.hpp" />
@@ -99,6 +100,7 @@
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\featuresbase.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\fuzzificator.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\hamming.cpp" />
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\hogxtractor.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\mbhxtractor.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\minkowski.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\rankedresult.cpp" />

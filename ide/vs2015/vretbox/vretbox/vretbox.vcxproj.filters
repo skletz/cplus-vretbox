@@ -66,5 +66,8 @@
     <None Include="..\..\..\..\testdata\config-files\COMO-Extraction.ini">
       <Filter>Ressourcendateien</Filter>
     </None>
+    <None Include="..\..\..\..\testdata\config-files\Test_Valuat_trecvid.ini">
+      <Filter>Ressourcendateien</Filter>
+    </None>
   </ItemGroup>
 </Project>

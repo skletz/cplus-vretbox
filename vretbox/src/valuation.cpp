@@ -64,6 +64,10 @@ bool vretbox::VRETBOXValuation::init(boost::program_options::variables_map _args
 	{
 		mDistance = initMinkowskiDistance();
 	}
+	else if (mArgs["General.distance"].as< std::string >() == "hamming")
+	{
+		mDistance = initHammingDistance();
+	}
 	else
 	{
 		LOG_FATAL("Distance " << mArgs["General.distance"].as< std::string >() << " is not defined");
@@ -295,6 +299,11 @@ defuse::Minkowski* vretbox::VRETBOXValuation::initMinkowskiDistance() const
 
 	gddistance = new defuse::Minkowski(grounddistance);
 	return gddistance;
+}
+
+defuse::Hamming* vretbox::VRETBOXValuation::initHammingDistance() const
+{
+	return new defuse::Hamming();
 }
 
 std::unique_lock<std::mutex> vretbox::VRETBOXValuation::locking()

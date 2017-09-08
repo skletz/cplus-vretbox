@@ -19,38 +19,41 @@ float defuse::Hamming::compute(FeaturesBase& _f1, FeaturesBase& _f2)
 float defuse::Hamming::compute(cv::Mat& _f1, cv::Mat& _f2) const
 {
 
-  // cv::BFMatcher matcher(cv::NORM_HAMMING, true); // with crossCheck
-  // cv::BFMatcher matcher(cv::NORM_HAMMING, false); // without crossCheck
-  // matcher.match(_f1, _f2, matches);
+	// cv::BFMatcher matcher(cv::NORM_HAMMING, true); // with crossCheck
+	// cv::BFMatcher matcher(cv::NORM_HAMMING, false); // without crossCheck
+	// matcher.match(_f1, _f2, matches);
 
-  // use BF matcher (hamming) to detect closes keypoint matches
-  std::vector<cv::DMatch> matches;
-  mMatcher->match(_f1, _f2, matches);
+	// use BF matcher (hamming) to detect closes keypoint matches
+	int rows = std::min(_f1.rows, _f2.rows);
+	std::vector<cv::DMatch> matches = std::vector<cv::DMatch>(rows);
+	mMatcher->match(_f1, _f2, matches);
 
-  // sort matches
-  float result = 0;
+	// sort matches
+	float result = 0;
 
-  for( int i = 0; i < _f1.rows; i++ )
-  { double dist = matches[i].distance;
-    result += float(dist);
-  }
+	for( int i = 0; i < _f1.rows; i++ )
+	{ 
+		double dist = matches[i].distance;
+		result += float(dist);
+	}
+
 	// LOG_INFO("# BF " << matches.size())
-  result /= float(matches.size());
+	result /= float(matches.size());
 
-  //-- Quick calculation of max and min distances between keypoints
-  // double max_dist = 0; double min_dist = 100;
-  // for( int i = 0; i < _f1.rows; i++ )
-  // { double dist = matches[i].distance;
-  //   if( dist < min_dist ) min_dist = dist;
-  //   if( dist > max_dist ) max_dist = dist;
-  // }
-  // printf("-- Max dist : %f \n", max_dist );
-  // printf("-- Min dist : %f \n", min_dist );
+	//-- Quick calculation of max and min distances between keypoints
+	// double max_dist = 0; double min_dist = 100;
+	// for( int i = 0; i < _f1.rows; i++ )
+	// { double dist = matches[i].distance;
+	//   if( dist < min_dist ) min_dist = dist;
+	//   if( dist > max_dist ) max_dist = dist;
+	// }
+	// printf("-- Max dist : %f \n", max_dist );
+	// printf("-- Min dist : %f \n", min_dist );
 
-  // OLD: not working, f1 & f2 must be same size
-  //float result_bits = float(cv::norm(_f1, _f2, cv::NORM_HAMMING));
+	// OLD: not working, f1 & f2 must be same size
+	//float result_bits = float(cv::norm(_f1, _f2, cv::NORM_HAMMING));
 
-  return result;
+	return result;
 }
 
 float defuse::Hamming::computeNorm(cv::Mat& _f1, cv::Mat& _f2) const

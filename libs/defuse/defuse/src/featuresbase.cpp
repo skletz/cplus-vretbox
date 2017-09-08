@@ -69,6 +69,7 @@ int defuse::FeaturesBase::getMatType(std::string type) const
 			break;
 		}
 	}
+
 	std::string matType = t.str();
 
 	if (matType == "32F")
@@ -266,7 +267,7 @@ bool defuse::FeaturesBase::readTextfile(std::string _file)
 	int matType = getMatType(type);
 
 	bool convertToUChar = false;
-	if (matType == CV_32S)
+	if (matType == CV_8U)
 		convertToUChar = true;
 
 	cv::Mat mat(width, height, matType);
@@ -283,8 +284,8 @@ bool defuse::FeaturesBase::readTextfile(std::string _file)
 					mat.at<float>(i, j) = val;
 				else if (matType == CV_64F)
 					mat.at<double>(i, j) = val;
-				else if (matType == CV_32S)
-					mat.at<int>(i, j) = val;
+				else if (matType == CV_8U)
+					mat.at<uchar>(i, j) = val;
 				else
 					LOG_ERROR("Error: readTextFile: Mat type not supported!");
 			}
@@ -293,7 +294,7 @@ bool defuse::FeaturesBase::readTextfile(std::string _file)
 	}
 
 	if(convertToUChar)
-		mat.convertTo(mat, CV_8U);
+		mat.convertTo(mat, CV_8UC1);
 
 	mVectors = mat;
 
