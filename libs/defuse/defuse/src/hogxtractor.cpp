@@ -38,7 +38,7 @@ defuse::FeaturesBase* defuse::HOGXtractor::xtract(VideoBase* _videobase)
 std::string defuse::HOGXtractor::toString()
 {
 	std::string result;
-	result += "xtractor: HOG, ";
+	result += "xtractor: cvHOG, ";
 	result += getKeyframeSelectionAsString();
 	return result;
 }
@@ -46,7 +46,7 @@ std::string defuse::HOGXtractor::toString()
 std::string defuse::HOGXtractor::getXtractorID() const
 {
 	std::stringstream st;
-	st << "HOG_";
+	st << "cvHOG_";
 	st << mKeyFrameSelection;
 	return st.str();
 }

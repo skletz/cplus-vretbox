@@ -14,6 +14,7 @@
 #include "../src/comoxtractor.hpp"
 #include "../src/fuzzificator.hpp"
 #include "../src/hogxtractor.hpp"
+#include "../src/ceedxtractor.hpp"
 #include "../src/mbhxtractor.hpp"
 
 #include "../src/smd.hpp"

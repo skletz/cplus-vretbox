@@ -72,6 +72,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\include\defuse.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\briskextractor.hpp" />
+    <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\ceedxtractor.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\comoxtractor.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\distancebase.hpp" />
     <ClInclude Include="..\..\..\..\libs\defuse\defuse\src\fdysigxtractor.hpp" />
@@ -94,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\briskextractor.cpp" />
+    <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\ceedxtractor.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\comoxtractor.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\defuse_info.cpp" />
     <ClCompile Include="..\..\..\..\libs\defuse\defuse\src\fdysigxtractor.cpp" />

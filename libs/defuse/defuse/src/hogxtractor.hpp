@@ -34,7 +34,7 @@ namespace defuse
 	float computeHogFeatures(cv::Mat& image, cv::Mat& descriptor, std::string filename);
 
 	  /**
-	 * \brief http://www.juergenbrauer.org/old_wiki/doku.php?id=public:hog_descriptor_computation_and_visualization
+	 * \brief get_hogdescriptor_visual_image: http://www.juergenbrauer.org/old_wiki/doku.php?id=public:hog_descriptor_computation_and_visualization
 	 * \param origImg 
 	 * \param descriptorValues 
 	 * \param winSize 
