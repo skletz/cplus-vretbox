@@ -329,7 +329,7 @@ void vretbox::VRETBOXValuation::initModel(std::unordered_map<std::string, int>& 
 		std::string filename = it->first;
 		file.setFilename(filename);
 
-		LOG_INFO("Looking for: " << file.getFile());
+		//LOG_INFO("Looking for: " << file.getFile());
 
 		defuse::FeaturesBase* features = new defuse::FeaturesBase();
 		features->deserialize(file.getFile());

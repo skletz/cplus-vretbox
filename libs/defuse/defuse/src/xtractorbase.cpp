@@ -1,5 +1,8 @@
 #include "xtractorbase.hpp"
 #include <iostream>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/video/tracking.hpp>
 
 void defuse::XtractorBase::showProgress(int _step, int _total) const
 {
@@ -112,4 +115,21 @@ std::string defuse::XtractorBase::getFrameRatioAsString() const
 		st << "all";
 	}
 	return st.str();
+}
+
+void defuse::XtractorBase::showImage(const cv::Mat _image, cv::Size _size, int x, int y, std::string name) const
+{
+	cv::Mat resImage;
+
+	cv::resize(_image, resImage, _size);
+	cv::imshow(name, resImage);
+	cv::moveWindow(name, x, y);
+}
+
+void defuse::XtractorBase::saveImage(std::string file, std::string fileextension, std::string name, cv::Mat& image) const
+{
+	File f(file);
+	f.setFilenameWithoutExtension(f.getFilename() + "_" + name);
+	f.setFileExtension(fileextension);
+	cv::imwrite(f.getFile(), image);
 }

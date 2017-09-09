@@ -66,6 +66,9 @@ namespace defuse {
 
 		std::string getFrameRatioAsString() const;
 
+		void showImage(const cv::Mat _image, cv::Size _size, int x, int y, std::string name) const;
+
+		void saveImage(std::string file, std::string fileextension, std::string name, cv::Mat& image) const;
 	};
 }
 

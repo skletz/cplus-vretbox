@@ -180,8 +180,7 @@ namespace defuse {
 	public:
 		void drawSamples(const cv::Mat _source, const cv::Mat _samples, cv::Mat& _result) const;
 		void drawSignatures(const cv::Mat _source, const cv::Mat _signature, cv::Mat& _result) const;
-		void showImage(const cv::Mat _image, cv::Size _size, int x, int y, std::string name) const;
-		void saveImage(std::string file, std::string fileextension, std::string name, cv::Mat& image) const;
+
 	};
 }
 

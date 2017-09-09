@@ -44,8 +44,8 @@ fi
 MAXTHREADS=21
 
 #Settings
-atKs=(0 1000 100 10 9 8 7 6 5 4 3 2 1)
-
+#atKs=(0 1000 100 10 9 8 7 6 5 4 3 2 1)#
+atKs=(0)
 echo "Starting ..."
 
 for atK in "${atKs[@]}"; do

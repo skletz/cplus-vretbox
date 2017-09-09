@@ -84,10 +84,8 @@ defuse::FeaturesBase* defuse::SIGXtractor::xtract(VideoBase* _videobase)
 	cv::Mat vectors;
 
 	//Measure extraction time
-	double e1Start = double(cv::getTickCount());
-	computeStaticSignatures(stream, _videobase->mFile->getFile(), vectors);
-	double e1End = double(cv::getTickCount());
-	double elapsedSecs = (e1End - e1Start) / double(cv::getTickFrequency());
+	double elapsedSecs = computeStaticSignatures(stream, _videobase->mFile->getFile(), vectors);
+
 
 	FeaturesBase* features = new FeaturesBase(_videobase->mFile->getFilename(), vectors);
 	features->mExtractionTime = float(elapsedSecs);
@@ -699,21 +697,4 @@ void defuse::SIGXtractor::drawSignatures(const cv::Mat _source, const cv::Mat _s
 
 	drawSamples(_source, _signature, result);
 	result.copyTo(_result);
-}
-
-void defuse::SIGXtractor::showImage(const cv::Mat _image, cv::Size _size, int x, int y, std::string name) const
-{
-	cv::Mat resImage;
-
-	cv::resize(_image, resImage, _size);
-	cv::imshow(name, resImage);
-	cv::moveWindow(name, x, y);
-}
-
-void defuse::SIGXtractor::saveImage(std::string file, std::string fileextension, std::string name,cv::Mat& image) const
-{
-	File f(file);
-	f.setFilenameWithoutExtension(f.getFilename() + "_" + name);
-	f.setFileExtension(fileextension);
-	cv::imwrite(f.getFile(), image);
 }

@@ -64,6 +64,12 @@ bool vretbox::VRETBOXXtraction::init(boost::program_options::variables_map _args
 		samplepoints = false;
 	}
 
+	if (desc == "hog")
+	{
+		areArgsValid = initHOGDescriptor();
+		samplepoints = false;
+	}
+
 	//Add modelname to all output destinations
 	std::string xtractorID = mXtractor->getXtractorID();
 
@@ -310,6 +316,40 @@ bool vretbox::VRETBOXXtraction::initBRISKDescriptor()
 	else
 	{
 		keyframeSelection = defuse::BRISKXtractor::KeyFrameSelection::MiddleFrame;
+		LOG_FATAL("Cfg.static.keyframeSelection " << mArgs["Cfg.static.keyframeSelection"].as< std::string >() << " is not defined");
+		areArgsValid = false;
+	}
+
+	return areArgsValid;
+}
+
+bool vretbox::VRETBOXXtraction::initHOGDescriptor()
+{
+	bool areArgsValid = true;
+	//Init xtractor
+	mXtractor = new defuse::HOGXtractor();
+	mXtractor->mDisaply = mDisplay;
+	mXtractor->mSaveDisplay = mSaveDisplay;
+	mXtractor->mOutput = mOutpudir;
+
+	defuse::HOGXtractor::KeyFrameSelection keyframeSelection;
+
+	//how to choose the keyframe for static feature signatures
+	if (mArgs["Cfg.static.keyframeSelection"].as<std::string>() == "MiddleFrame")
+	{
+		keyframeSelection = defuse::HOGXtractor::KeyFrameSelection::MiddleFrame;
+	}
+	else if (mArgs["Cfg.static.keyframeSelection"].as<std::string>() == "FirstFrame")
+	{
+		keyframeSelection = defuse::HOGXtractor::KeyFrameSelection::FirstFrame;
+	}
+	else if (mArgs["Cfg.static.keyframeSelection"].as<std::string>() == "LastFrame")
+	{
+		keyframeSelection = defuse::HOGXtractor::KeyFrameSelection::LastFrame;
+	}
+	else
+	{
+		keyframeSelection = defuse::HOGXtractor::KeyFrameSelection::MiddleFrame;
 		LOG_FATAL("Cfg.static.keyframeSelection " << mArgs["Cfg.static.keyframeSelection"].as< std::string >() << " is not defined");
 		areArgsValid = false;
 	}

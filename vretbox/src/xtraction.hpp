@@ -62,6 +62,8 @@ namespace vretbox {
 
 		bool initBRISKDescriptor();
 
+		bool initHOGDescriptor();
+
 		bool deserializeSamplepoints(std::string samplepointdir, std::string fileextension, int initSeeds, defuse::SamplePoints::Distribution distribution, float mean, float stddev, std::vector<cv::Point2f>& samplepoints);
 
 		void initSamplepoints(int initSeeds, defuse::SamplePoints::Distribution distribution, float mean, float stddev, std::vector<cv::Point2f>& samplepoints);

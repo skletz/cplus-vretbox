@@ -18,13 +18,13 @@ float defuse::Hamming::compute(FeaturesBase& _f1, FeaturesBase& _f2)
 
 float defuse::Hamming::compute(cv::Mat& _f1, cv::Mat& _f2) const
 {
-
+	float result = 0;
 	// cv::BFMatcher matcher(cv::NORM_HAMMING, true); // with crossCheck
 	// cv::BFMatcher matcher(cv::NORM_HAMMING, false); // without crossCheck
 	// matcher.match(_f1, _f2, matches);
 
 	// use BF matcher (hamming) to detect closes keypoint matches
-	int rows = std::min(_f1.rows, _f2.rows);
+	/*******int rows = std::min(_f1.rows, _f2.rows);
 	std::vector<cv::DMatch> matches = std::vector<cv::DMatch>(rows);
 	mMatcher->match(_f1, _f2, matches);
 
@@ -39,7 +39,7 @@ float defuse::Hamming::compute(cv::Mat& _f1, cv::Mat& _f2) const
 
 	// LOG_INFO("# BF " << matches.size())
 	result /= float(matches.size());
-
+	*******/
 	//-- Quick calculation of max and min distances between keypoints
 	// double max_dist = 0; double min_dist = 100;
 	// for( int i = 0; i < _f1.rows; i++ )
@@ -52,6 +52,24 @@ float defuse::Hamming::compute(cv::Mat& _f1, cv::Mat& _f2) const
 
 	// OLD: not working, f1 & f2 must be same size
 	//float result_bits = float(cv::norm(_f1, _f2, cv::NORM_HAMMING));
+
+	int size = std::min(_f2.rows, _f1.rows);
+
+	std::vector<std::vector<cv::DMatch>> matches = std::vector<std::vector<cv::DMatch>>(size);
+
+	mMatcher->knnMatch(_f1, _f2, matches, 1);
+
+	int counter = 0;
+	float dist = 0.0;
+	for (int i = 0; i < matches.size(); i++)
+	{
+		
+		if (matches.at(i).size() > 0)
+		{
+			dist = matches.at(i).at(0).distance;
+		}
+	}
+	result = dist / float(matches.size());
 
 	return result;
 }
