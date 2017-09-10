@@ -17,12 +17,12 @@ printf "%-20s %s\n" "input directory of all videos :"  "$VRET_DATA"
 printf "%-20s %s\n" "output directory of all evaluation files :"  "$VRET_EVAL"
 
 timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
-LOGFILE="$VRET_EVAL"/logs/hog-xtraction-$timestamp.out
+LOGFILE="$VRET_EVAL"/logs/ceed-xtraction-$timestamp.out
 
 echo "LOGFILE: " $LOGFILE
 
 #CONFIGFILE="$VRET_EVAL"/configs/Sig_Xtract_Test.ini
-CONFIGFILE=../testdata/config-files/HOG-Extraction.ini
+CONFIGFILE=../testdata/config-files/CEED-Extraction.ini
 
 #Settings
 samplepoints=(8000)
