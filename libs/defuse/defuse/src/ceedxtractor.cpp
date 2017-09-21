@@ -196,7 +196,7 @@ bool defuse::CEEDXtractor::extractFromBlock(cv::Mat& imageBlock, cv::Mat& grayBl
 	neighbours.area3 = int(neighbours.area3 * (4.0 / (width * height)));
 	neighbours.area4 = int(neighbours.area4 * (4.0 / (width * height)));
 
-
+	//obtain the respective edge magnitudes
 	maskValues.mask1 = std::abs(
 		neighbours.area1 * 2 + neighbours.area2 * -2 + neighbours.area3 * -2 + neighbours.area4 * 2);
 
@@ -212,20 +212,22 @@ bool defuse::CEEDXtractor::extractFromBlock(cv::Mat& imageBlock, cv::Mat& grayBl
 	maskValues.mask5 = std::abs(
 		neighbours.area1 * 0 + neighbours.area2 * std::sqrt(2) + neighbours.area3 * -std::sqrt(2) + neighbours.area4 * 0);
 
+	//calculate the maximum from calculated edge magnitudes
 	Max = std::max(maskValues.mask1, std::max(maskValues.mask2, std::max(maskValues.mask3, std::max(maskValues.mask4, maskValues.mask5))));
 
-
+	//Normalize values using the maximum
 	maskValues.mask1 = maskValues.mask1 / Max;
 	maskValues.mask2 = maskValues.mask2 / Max;
 	maskValues.mask3 = maskValues.mask3 / Max;
 	maskValues.mask4 = maskValues.mask4 / Max;
 	maskValues.mask5 = maskValues.mask5 / Max;
 
-
+	//count values according to heuristic pentagon diagram
 	int t = -1;
 
+	//if the max value is greater than the given threshold, the image block is classifiedas texture block
 	if (Max < T0) {
-		edgeHist[0] = 0;
+		edgeHist[0] = 0; //non-directional (texture-less block)
 		t = 0;
 	}
 	else {

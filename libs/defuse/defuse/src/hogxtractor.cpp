@@ -6,7 +6,8 @@
 
 defuse::HOGXtractor::HOGXtractor()
 {
-	mWinSize = cv::Size(128,64);
+	//mWinSize = cv::Size(128,64);
+	mWinSize = cv::Size(192, 144);
 	mBlockSize = cv::Size(16, 16);
 	mBlockStride = cv::Size(8, 8);
 	mCellSize = cv::Size(8, 8);
@@ -37,10 +38,11 @@ defuse::FeaturesBase* defuse::HOGXtractor::xtract(VideoBase* _videobase)
 
 std::string defuse::HOGXtractor::toString()
 {
-	std::string result;
-	result += "xtractor: cvHOG, ";
-	result += getKeyframeSelectionAsString();
-	return result;
+	std::stringstream result;
+	result << "xtractor: cvHOG, ";
+	result << "mWinSize: " << mWinSize.width << "x" + mWinSize.height << ", ";
+	result << getKeyframeSelectionAsString();
+	return result.str();
 }
 
 std::string defuse::HOGXtractor::getXtractorID() const
@@ -48,6 +50,8 @@ std::string defuse::HOGXtractor::getXtractorID() const
 	std::stringstream st;
 	st << "cvHOG_";
 	st << mKeyFrameSelection;
+	st << "_" << mWinSize.width;
+	st << "_" << mWinSize.height;
 	return st.str();
 }
 
@@ -105,7 +109,7 @@ float defuse::HOGXtractor::computeHogFeatures(cv::Mat& image, cv::Mat& descripto
 	if (mDisaply || mSaveDisplay)
 	{
 		cv::Mat hogImage;
-		visualizeHOGDescriptor(tmpImg, descriptorsValues, imgSize, mCellSize, 2, 1, hogImage);
+		visualizeHOGDescriptor(tmpImg, descriptorsValues, imgSize, mCellSize, 3, 1, hogImage);
 
 		char keyPressed = 0;
 		if (mDisaply)

@@ -16,12 +16,12 @@ printf "%-20s %s\n" "input directory of all features :"  "$VRET_DATA"
 printf "%-20s %s\n" "output directory of all evaluation files :"  "$VRET_EVAL"
 
 timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
-LOGFILE="$VRET_EVAL"/logs/sthog-evaluation-$timestamp.out
-
+LOGFILE="$VRET_EVAL"/logs/ffs-smd-evaluation-$timestamp.out
+#LOGFILE=sfs-smd-evaluation-speedup.out
 echo "LOGFILE: " $LOGFILE
 
 #CONFIGFILE="$VRET_EVAL"/configs/Sig_Xtract_Test.ini
-CONFIGFILE=../testdata/config-files/HOG-Evaluation.ini
+CONFIGFILE=../testdata/config-files/FS-Evaluation.ini
 
 #Default
 BIN="builds/linux/bin"

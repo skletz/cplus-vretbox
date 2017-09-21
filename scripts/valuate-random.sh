@@ -16,12 +16,12 @@ printf "%-20s %s\n" "input directory of all features :"  "$VRET_DATA"
 printf "%-20s %s\n" "output directory of all evaluation files :"  "$VRET_EVAL"
 
 timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
-LOGFILE="$VRET_EVAL"/logs/sfs-smd-evaluation-$timestamp.out
-#LOGFILE=sfs-smd-evaluation-speedup.out
+LOGFILE="$VRET_EVAL"/logs/random-evaluation-$timestamp.out
+
 echo "LOGFILE: " $LOGFILE
 
 #CONFIGFILE="$VRET_EVAL"/configs/Sig_Xtract_Test.ini
-CONFIGFILE=../testdata/config-files/SFS-Evaluation.ini
+CONFIGFILE=../testdata/config-files/RANDOM-Evaluation.ini
 
 #Default
 BIN="builds/linux/bin"
@@ -43,19 +43,17 @@ fi
 
 MAXTHREADS=21
 
-#Settings
-atKs=(0 1000 100 10 9 8 7 6 5 4 3 2 1)
-
+atK=0
 echo "Starting ..."
 
-for atK in "${atKs[@]}"; do
+for iTest in {1..1000}; do
   echo "---------------------------------------------------------" >> "${LOGFILE}"
   start_timestamp=$(date +"%Y-%m-%d_%H-%M-%S.%3N")
   echo "START: "$atK","$start_timestamp >> "${LOGFILE}"
   echo "---------------------------------------------------------" >> "${LOGFILE}"
 
   echo --maxThreads $MAXTHREADS --General.atK $atK --config "$CONFIGFILE"
-  time $BIN/$PROG --maxThreads $MAXTHREADS --General.atK $atK --config "$CONFIGFILE" 2>&1 | tee -a "${LOGFILE}"
+  time $BIN/$PROG --maxThreads $MAXTHREADS --General.atK $atK --config "$CONFIGFILE"
 
   echo "---------------------------------------------------------" >> "${LOGFILE}"
   end_timestamp=$(date +"%Y-%m-%d_%H-%M-%S.%3N")

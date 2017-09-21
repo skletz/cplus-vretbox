@@ -17,17 +17,17 @@ printf "%-20s %s\n" "input directory of all videos :"  "$VRET_DATA"
 printf "%-20s %s\n" "output directory of all evaluation files :"  "$VRET_EVAL"
 
 timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
-LOGFILE="$VRET_EVAL"/logs/ceed-xtraction-$timestamp.out
+LOGFILE="$VRET_EVAL"/logs/ffs-xtraction-$timestamp.out
 
 echo "LOGFILE: " $LOGFILE
 
 #CONFIGFILE="$VRET_EVAL"/configs/Sig_Xtract_Test.ini
-CONFIGFILE=../testdata/config-files/CEED-Extraction.ini
+CONFIGFILE=../testdata/config-files/FS-Extraction.ini
 
 #Settings
 samplepoints=(8000)
 initCentroids=(90)
-framecnt=(2)
+framecnt=(36)
 #framecnt=(10 15 20 25 30 50 125)
 echo "Starting ..."
 for samples in "${samplepoints[@]}"; do

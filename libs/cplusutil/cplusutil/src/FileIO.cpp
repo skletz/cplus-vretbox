@@ -96,7 +96,10 @@ std::string cplusutil::FileIO::getName(std::string path)
 std::string cplusutil::FileIO::getFileExtension(std::string file)
 {
 	int pos = file.find_last_of(".");
-	std::string ext = file.substr(pos);
+	std::string ext = "";
+	if(pos != -1)
+		ext = file.substr(pos);
+
 	return ext;
 }
 

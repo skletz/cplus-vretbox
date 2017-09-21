@@ -81,7 +81,11 @@ double defuse::Valuator::sortModelToQuery(
 
 		if (distance < 0)
 		{
-			LOG_FATAL("Fatal Error: The Distance is smaller than zero: " << distance);
+			std::unique_lock<std::mutex> guard(locking());
+			LOG_ERROR("Error: sortModelToQuery - distance measures: " << distance << " between query: " << _query->mID << "and element: " << element->mID);
+			LOG_ERROR("Element are no longer considered ...");
+			guard.unlock();
+			continue;
 		}
 
 		double tickFrequency = double(cv::getTickFrequency());

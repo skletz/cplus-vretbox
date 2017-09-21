@@ -84,7 +84,8 @@ bool defuse::FlowDySIGXtractor::computeDynamicSignatures(cv::VideoCapture& _vide
 	std::vector<cv::Point2f> prevPoints(initPoints);
 
 	std::vector<cv::Mat> spatialsamples;
-	spatialsamples.reserve(framecnt);
+	int nrOfSpatialSamples = (frameSize / float(step)) + 1;
+	spatialsamples.reserve(nrOfSpatialSamples);
 
 	cv::Mat samples;
 	samples.create(initPoints.size(), indices.dims, CV_32F);
@@ -108,7 +109,7 @@ bool defuse::FlowDySIGXtractor::computeDynamicSignatures(cv::VideoCapture& _vide
 
 		cv::cvtColor(frame, grayFrame, CV_BGR2GRAY);
 
-		if (mResetTracking)
+		if (mResetTracking || prevPoints.size() == 0)
 		{
 			prevPoints = std::vector<cv::Point2f>(initPoints);
 		}
